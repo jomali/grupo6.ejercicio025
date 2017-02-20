@@ -58,7 +58,7 @@ public class ProductoForm extends FormLayout {
 		borrar.addClickListener(e->padre.borrarGrid(producto));
 		borrar.setIcon(FontAwesome.CLOSE);
 				
-		horizontal.addComponents(vertical1,vertical2, horizontal3);
+		horizontal.addComponents(vertical1, horizontal3);
 		vertical1.addComponents(nombre,precio);
 
 		horizontal3.addComponents(accion,borrar);

@@ -36,6 +36,7 @@ public class VistaProductos extends VerticalLayout implements View {
 
 	private ServicioGestorProductos servicioGestorProducto;
 
+	@SuppressWarnings("serial")
 	public VistaProductos(Navigator navegador, ServicioGestorProductos servicioGestorProducto) {
 		this.servicioGestorProducto = servicioGestorProducto;
 
