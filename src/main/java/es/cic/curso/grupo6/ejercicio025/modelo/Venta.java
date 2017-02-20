@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  * Representa una venta de un tipo de producto.
@@ -18,6 +19,7 @@ import javax.persistence.OneToMany;
  *
  */
 @Entity
+@Table(name = "VENTA")
 public class Venta implements Identificable<Long> {
 	private static final long serialVersionUID = -5612199016136752211L;
 

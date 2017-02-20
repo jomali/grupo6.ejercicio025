@@ -8,8 +8,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "INVENTARIO")
 public class Inventario implements Identificable<Long> {
 	private static final long serialVersionUID = -4368875676419421652L;
 

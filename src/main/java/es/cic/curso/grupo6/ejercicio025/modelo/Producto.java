@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * Representa un producto.
@@ -15,6 +16,7 @@ import javax.persistence.Id;
  *
  */
 @Entity
+@Table(name = "PRODUCTO")
 public class Producto implements Identificable<Long> {
 	private static final long serialVersionUID = -2585317617874092926L;
 
