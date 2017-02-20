@@ -25,19 +25,14 @@ public class VistaTienda extends VerticalLayout implements View {
 		MenuBar menuNavegacion = new MenuBar();
 		menuNavegacion.setWidth(100.0F, Unit.PERCENTAGE);
 		menuNavegacion.setHeight(100.0F, Unit.PERCENTAGE);
-		menuNavegacion.addItem("Tienda", new Command() {
-			@Override
-			public void menuSelected(final MenuItem selectedItem) {
-				navegador.navigateTo("");
-			}
-		});
+		MenuItem menuItemTienda = menuNavegacion.addItem("Tienda", null);
+		menuItemTienda.setEnabled(false);
 		menuNavegacion.addItem("Inventario", new Command() {
 			@Override
 			public void menuSelected(final MenuItem selectedItem) {
 				navegador.navigateTo(MyUI.VISTA_INVENTARIO);
 			}
 		});
-
 		menuNavegacion.addItem("Productos", new Command() {
 			@Override
 			public void menuSelected(final MenuItem selectedItem) {
