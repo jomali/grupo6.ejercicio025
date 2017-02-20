@@ -45,15 +45,19 @@ public class VistaProductos extends VerticalLayout implements View {
 			public void menuSelected(final MenuItem selectedItem) {
 				navegador.navigateTo("");
 			}
+			
 		});
-		MenuItem menuItemVistaPeliculas = menuNavegacion.addItem("Inventario", null);
-		menuItemVistaPeliculas.setEnabled(false);
-		menuNavegacion.addItem("Productos", new Command() {
+		menuNavegacion.addItem("Inventario", new Command() {
 			@Override
 			public void menuSelected(final MenuItem selectedItem) {
-				navegador.navigateTo(MyUI.VISTA_PRODUCTO);
+				navegador.navigateTo("");
 			}
+			
 		});
+		
+		MenuItem menuItemVistaProductos = menuNavegacion.addItem("Productos", null);
+		menuItemVistaProductos.setEnabled(false);
+
 		addComponent(menuNavegacion);
 
 	}
