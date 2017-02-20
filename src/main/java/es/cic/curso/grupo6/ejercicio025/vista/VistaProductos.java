@@ -32,30 +32,26 @@ public class VistaProductos extends VerticalLayout implements View {
 		this.servicioProducto = servicioProducto;
 		
 		// Navegación entre las vistas de la aplicación:
-				MenuBar menuNavegacion = new MenuBar();
-				menuNavegacion.setWidth(100.0F, Unit.PERCENTAGE);
-				menuNavegacion.setHeight(100.0F, Unit.PERCENTAGE);
-				MenuItem menuItemVistaCine = menuNavegacion.addItem("Cine", null);
-				menuItemVistaCine.setEnabled(false);
-				menuNavegacion.addItem("Tienda", new Command() {
-					@Override
-					public void menuSelected(final MenuItem selectedItem) {
-						navegador.navigateTo(MyUI.VISTA_TIENDA);
-					}
-				});
-				menuNavegacion.addItem("Inventario", new Command() {
-					@Override
-					public void menuSelected(final MenuItem selectedItem) {
-						navegador.navigateTo(MyUI.VISTA_INVENTARIO);
-					}
-				});
-				menuNavegacion.addItem("Productos", new Command() {
-					@Override
-					public void menuSelected(final MenuItem selectedItem) {
-						navegador.navigateTo(MyUI.VISTA_PRODUCTO);
-					}
-				});
-				addComponent(menuNavegacion);
+		MenuBar menuNavegacion = new MenuBar();
+		menuNavegacion.setWidth(100.0F, Unit.PERCENTAGE);
+		menuNavegacion.addItem("Tienda", new Command() {
+			@Override
+			public void menuSelected(final MenuItem selectedItem) {
+				navegador.navigateTo("");
+			}
+		});
+		MenuItem menuItemVistaPeliculas = menuNavegacion.addItem("Inventario", null);
+		menuItemVistaPeliculas.setEnabled(false);
+		menuNavegacion.addItem("Productos", new Command() {
+			@Override
+			public void menuSelected(final MenuItem selectedItem) {
+				navegador.navigateTo(MyUI.VISTA_PRODUCTOS);
+			}
+		});
+		addComponent(menuNavegacion);
+
+		addComponent(creaTabPeliculas());
+		cargaGrid(null);
 
 	@Override
 	public void enter(ViewChangeEvent event) {

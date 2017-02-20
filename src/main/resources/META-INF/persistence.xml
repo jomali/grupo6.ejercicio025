@@ -6,10 +6,6 @@
   version="2.0">
     <persistence-unit name="persistenceUnitHSQL" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
-        <class>es.cic.curso.grupo5.ejercicio024.modelo.Pelicula</class>
-        <class>es.cic.curso.grupo5.ejercicio024.modelo.Sesion</class>
-        <class>es.cic.curso.grupo5.ejercicio024.modelo.Sala</class>
-        <class>es.cic.curso.grupo5.ejercicio024.modelo.Venta</class>
         
 
         <exclude-unlisted-classes>true</exclude-unlisted-classes>

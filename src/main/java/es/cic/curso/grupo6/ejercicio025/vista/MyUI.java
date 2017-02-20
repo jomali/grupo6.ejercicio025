@@ -22,6 +22,7 @@ import com.vaadin.ui.UI;
 public class MyUI extends UI {
 	private static final long serialVersionUID = -9188348155047637473L;
 
+
 	static final String VISTA_INVENTARIO = "inventario";
 	static final String VISTA_PRODUCTO = "productos";
 	
