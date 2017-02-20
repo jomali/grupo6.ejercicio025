@@ -36,11 +36,11 @@ public class ProductoForm extends FormLayout {
 		horizontal.setSpacing(true);
 		
 		final VerticalLayout vertical1 = new VerticalLayout();
-		final VerticalLayout vertical2 = new VerticalLayout();
+
 		final VerticalLayout horizontal3 = new VerticalLayout();
 
 		vertical1.setSpacing(true);
-		vertical2.setSpacing(true);
+
 		horizontal3.setSpacing(true);
 		
 		nombre = new TextField("Nombre: ");
@@ -59,8 +59,8 @@ public class ProductoForm extends FormLayout {
 		borrar.setIcon(FontAwesome.CLOSE);
 				
 		horizontal.addComponents(vertical1,vertical2, horizontal3);
-		vertical1.addComponents(titulo,director,productora,interprete);
-		vertical2.addComponents(estreno,duracion,genero);
+		vertical1.addComponents(nombre,precio);
+
 		horizontal3.addComponents(accion,borrar);
 
 		addComponents(horizontal);
