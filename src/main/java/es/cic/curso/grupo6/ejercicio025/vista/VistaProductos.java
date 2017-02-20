@@ -2,25 +2,19 @@ package es.cic.curso.grupo6.ejercicio025.vista;
 
 import java.util.List;
 
-import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
-import com.vaadin.server.FontAwesome;
-import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Grid;
-import com.vaadin.ui.Grid.SelectionMode;
-import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.MenuBar;
-import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.MenuBar.Command;
 import com.vaadin.ui.MenuBar.MenuItem;
 import com.vaadin.ui.Notification;
+import com.vaadin.ui.VerticalLayout;
 
 import es.cic.curso.grupo6.ejercicio025.modelo.Producto;
 import es.cic.curso.grupo6.ejercicio025.servicio.ServicioGestorProductos;
-import es.cic.curso.grupo6.ejercicio025.vista.MyUI;
 
 public class VistaProductos extends VerticalLayout implements View {
 	private static final long serialVersionUID = -2185019071795535344L;
@@ -118,9 +112,9 @@ public class VistaProductos extends VerticalLayout implements View {
 //	 BeanItemContainer<>(Producto.class, listaProductos));
 //	 servicioGestorProducto.aniadirProducto(p); }
 	 
-	 public void mostrarBotones() { addBtn.setVisible(true);
-	 cancelar.setVisible(false); }
-	 
+//	 public void mostrarBotones() { addBtn.setVisible(true);
+//	 cancelar.setVisible(false); }
+//	 
 //	public void borrarGrid(Producto item) {
 //		listaProductos.remove(item);
 //		maestro.setContainerDataSource(new BeanItemContainer<>(Producto.class, listaProductos));

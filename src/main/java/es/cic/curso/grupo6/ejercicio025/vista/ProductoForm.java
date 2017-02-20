@@ -51,11 +51,11 @@ public class ProductoForm extends FormLayout {
 		
 		accion = new Button("Añadir");
 		accion.addClickListener(e -> {
-			padre.cargaGrid(producto);
-			padre.mostrarBotones();
+			//padre.cargaGrid(producto);
+			//padre.mostrarBotones();
 			});
 		borrar = new Button("Borrar");
-		borrar.addClickListener(e->padre.borrarGrid(producto));
+		//borrar.addClickListener(e->padre.borrarGrid(producto));
 		borrar.setIcon(FontAwesome.CLOSE);
 				
 		horizontal.addComponents(vertical1, horizontal3);
