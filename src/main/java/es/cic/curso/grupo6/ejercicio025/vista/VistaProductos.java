@@ -2,9 +2,11 @@ package es.cic.curso.grupo6.ejercicio025.vista;
 
 import java.util.List;
 
+import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
+import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Grid;
@@ -101,26 +103,28 @@ public class VistaProductos extends VerticalLayout implements View {
 	 return result; }
 	
 
-	/*
-	 * public void cargaGrid(Producto item) { if (item != null) {
-	 * servicioGestorProducto.actualizarProducto(item); }
-	 * 
-	 * listaProductos = servicioGestorProducto.obtenerProducto();
-	 * 
-	 * maestro.setContainerDataSource(new BeanItemContainer<>(Producto.class,
-	 * listaProductos)); detalle.setProducto(null); }
-	 * 
-	 * public void aniadirGrid() { Producto p = new Producto("", "", "");
-	 * detalle.setProducto(p); maestro.setContainerDataSource(new
-	 * BeanItemContainer<>(Producto.class, listaProductos));
-	 * servicioGestorProducto.aniadirProducto(p); }
-	 * 
-	 * public void mostrarBotones() { addBtn.setVisible(true);
-	 * cancelar.setVisible(false); }
-	 * 
-	 * public void borrarGrid(Producto item) { listaProductos.remove(item);
-	 * maestro.setContainerDataSource(new BeanItemContainer<>(Producto.class,
-	 * listaProductos)); Long itemId = item.getId();
-	 * servicioGestorProducto.borrarProducto(itemId); }
-	 */
+	
+//	 public void cargaGrid(Producto item) { if (item != null) {
+//	 servicioGestorProducto.actualizarProducto(item); }
+//	 
+//	 listaProductos = servicioGestorProducto.obtenerProducto();
+//	 
+//	 maestro.setContainerDataSource(new BeanItemContainer<>(Producto.class,
+//	 listaProductos)); detalle.setProducto(null); }
+	 
+//	 public void aniadirGrid() { Producto p = new Producto();
+//	 detalle.setProducto(p); maestro.setContainerDataSource(new
+//	 BeanItemContainer<>(Producto.class, listaProductos));
+//	 servicioGestorProducto.aniadirProducto(p); }
+	 
+	 public void mostrarBotones() { addBtn.setVisible(true);
+	 cancelar.setVisible(false); }
+	 
+//	public void borrarGrid(Producto item) {
+//		listaProductos.remove(item);
+//		maestro.setContainerDataSource(new BeanItemContainer<>(Producto.class, listaProductos));
+//		Long itemId = item.getId();
+//		servicioGestorProducto.borrarProducto(itemId);
+//	}
+	
 }
