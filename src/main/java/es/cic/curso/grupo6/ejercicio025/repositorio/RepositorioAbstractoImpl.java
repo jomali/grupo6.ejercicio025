@@ -1,11 +1,12 @@
-package es.cic.curso.grupo5.ejercicio024.repositorio;
+package es.cic.curso.grupo6.ejercicio025.repositorio;
 
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import es.cic.curso.grupo5.ejercicio024.modelo.Identificable;
+import es.cic.curso.grupo6.ejercicio025.modelo.Identificable;
+
 
 public abstract class RepositorioAbstractoImpl<K extends Number, T extends Identificable<K>>
 		implements Repositorio<K, T> {

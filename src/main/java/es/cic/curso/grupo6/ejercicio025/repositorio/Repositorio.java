@@ -1,8 +1,8 @@
-package es.cic.curso.grupo5.ejercicio024.repositorio;
+package es.cic.curso.grupo6.ejercicio025.repositorio;
 
 import java.util.List;
 
-import es.cic.curso.grupo5.ejercicio024.modelo.Identificable;
+import es.cic.curso.grupo6.ejercicio025.modelo.Identificable;
 
 public interface Repositorio<K extends Number, T extends Identificable<K>> {
 	
