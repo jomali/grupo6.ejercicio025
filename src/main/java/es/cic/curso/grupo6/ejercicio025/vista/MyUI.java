@@ -52,7 +52,7 @@ public class MyUI extends UI {
 		navegador = new Navigator(this, this);
 
 		// Crea y registra las vistas:
-		navegador.addView("", new VistaTienda(navegador));
+		navegador.addView("", new VistaTienda(navegador, servicioGestorVentas));
 		navegador.addView(VISTA_INVENTARIO, new VistaInventario(navegador, servicioGestorInventario));
 		navegador.addView(VISTA_PRODUCTO, new VistaProductos(navegador, servicioGestorProductos));
 

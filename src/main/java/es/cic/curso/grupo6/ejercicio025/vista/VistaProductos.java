@@ -25,7 +25,7 @@ public class VistaProductos extends VerticalLayout implements View {
 
 	private Grid maestro;
 
-	/* private ProductoForm detalle; */
+	private ProductoForm detalle;
 
 	private List<Producto> listaProductos;
 
@@ -45,15 +45,18 @@ public class VistaProductos extends VerticalLayout implements View {
 			public void menuSelected(final MenuItem selectedItem) {
 				navegador.navigateTo("");
 			}
+			
 		});
-		MenuItem menuItemVistaPeliculas = menuNavegacion.addItem("Inventario", null);
-		menuItemVistaPeliculas.setEnabled(false);
-		menuNavegacion.addItem("Productos", new Command() {
+		menuNavegacion.addItem("Inventario", new Command() {
 			@Override
 			public void menuSelected(final MenuItem selectedItem) {
-				navegador.navigateTo(MyUI.VISTA_PRODUCTO);
+				navegador.navigateTo(MyUI.VISTA_INVENTARIO);
 			}
 		});
+		
+		MenuItem menuItemVistaProductos = menuNavegacion.addItem("Productos", null);
+		menuItemVistaProductos.setEnabled(false);
+
 		addComponent(menuNavegacion);
 
 	}
@@ -63,40 +66,40 @@ public class VistaProductos extends VerticalLayout implements View {
 		Notification.show("Vista PRODUCTOS");
 	}
 
-	/*
-	 * private VerticalLayout creaTabProductos() { final VerticalLayout result =
-	 * new VerticalLayout(); result.setMargin(true); result.setSpacing(true);
-	 * result.setSizeFull();
-	 * 
-	 * maestro = new Grid(); maestro.setColumns("nombre", "precio", "cantidad");
-	 * maestro.setSizeFull();
-	 * 
-	 * maestro.setFrozenColumnCount(1);
-	 * maestro.setSelectionMode(SelectionMode.SINGLE);
-	 * 
-	 * addBtn = new Button("Añadir producto"); cancelar = new
-	 * Button("Cancelar"); cancelar.setVisible(false);
-	 * 
-	 * maestro.addSelectionListener(e -> { Producto p = null; if
-	 * (!e.getSelected().isEmpty()) { p = (Producto)
-	 * e.getSelected().iterator().next(); addBtn.setVisible(false); } else {
-	 * addBtn.setVisible(true); } detalle.mostrarBotones();
-	 * detalle.setProducto(p); }); detalle = new ProductoForm(this);
-	 * 
-	 * cancelar.addClickListener(e -> { Producto p = null;
-	 * detalle.setProducto(p); addBtn.setVisible(true);
-	 * cancelar.setVisible(false); });
-	 * 
-	 * addBtn.addClickListener(e -> { addBtn.setVisible(false);
-	 * detalle.ocultarBotones(); cancelar.setVisible(true); aniadirGrid(); });
-	 * 
-	 * addBtn.setIcon(FontAwesome.FILM);
-	 * 
-	 * result.addComponents(maestro, detalle, addBtn, cancelar);
-	 * result.setMargin(true); result.setSpacing(true); result.setWidth("100%");
-	 * 
-	 * return result; }
-	 */
+	
+	 private VerticalLayout creaTabProductos() { final VerticalLayout result =
+	 new VerticalLayout(); result.setMargin(true); result.setSpacing(true);
+	 result.setSizeFull();
+	 
+	 maestro = new Grid(); maestro.setColumns("nombre", "precio", "cantidad");
+	 maestro.setSizeFull();
+	 
+	 maestro.setFrozenColumnCount(1);
+	 maestro.setSelectionMode(SelectionMode.SINGLE);
+	 
+	 addBtn = new Button("Añadir producto"); cancelar = new
+	 Button("Cancelar"); cancelar.setVisible(false);
+	 
+	 maestro.addSelectionListener(e -> { Producto p = null; if
+	 (!e.getSelected().isEmpty()) { p = (Producto)
+	 e.getSelected().iterator().next(); addBtn.setVisible(false); } else {
+	 addBtn.setVisible(true); } detalle.mostrarBotones();
+	 detalle.setProducto(p); }); detalle = new ProductoForm(this);
+	 
+	 cancelar.addClickListener(e -> { Producto p = null;
+	 detalle.setProducto(p); addBtn.setVisible(true);
+	 cancelar.setVisible(false); });
+	 
+	 addBtn.addClickListener(e -> { addBtn.setVisible(false);
+	 detalle.ocultarBotones(); cancelar.setVisible(true); aniadirGrid(); });
+	 
+	 addBtn.setIcon(FontAwesome.FILM);
+	 
+	 result.addComponents(maestro, detalle, addBtn, cancelar);
+	 result.setMargin(true); result.setSpacing(true); result.setWidth("100%");
+	 
+	 return result; }
+	
 
 	/*
 	 * public void cargaGrid(Producto item) { if (item != null) {
