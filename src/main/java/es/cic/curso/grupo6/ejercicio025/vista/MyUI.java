@@ -2,12 +2,18 @@ package es.cic.curso.grupo6.ejercicio025.vista;
 
 import javax.servlet.annotation.WebServlet;
 
+import org.springframework.web.context.ContextLoader;
+
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.UI;
+
+import es.cic.curso.grupo6.ejercicio025.servicio.ServicioGestorInventario;
+import es.cic.curso.grupo6.ejercicio025.servicio.ServicioGestorProductos;
+import es.cic.curso.grupo6.ejercicio025.servicio.ServicioGestorVentas;
 
 /**
  * This UI is the application entry point. A UI may either represent a browser
@@ -28,9 +34,19 @@ public class MyUI extends UI {
 	
 	/** Gestiona una colección de implementaciones de <code>View</code>. */
 	Navigator navegador;
+	
+	private ServicioGestorInventario servicioGestorInventario;
+	private ServicioGestorProductos servicioGestorProductos;
+	private ServicioGestorVentas servicioGestorVentas;
+	
 
 	@Override
 	protected void init(VaadinRequest request) {
+		servicioGestorInventario = ContextLoader.getCurrentWebApplicationContext().getBean(ServicioGestorInventario.class);
+		servicioGestorProductos = ContextLoader.getCurrentWebApplicationContext().getBean(ServicioGestorProductos.class);
+		servicioGestorVentas = ContextLoader.getCurrentWebApplicationContext().getBean(ServicioGestorVentas.class);
+
+
 		getPage().setTitle("Badulaque");
 		
 		// Crea el navegador para controlar las vistas:
@@ -38,8 +54,10 @@ public class MyUI extends UI {
 				
 		// Crea y registra las vistas:
 		navegador.addView("", new VistaTienda(navegador));
-		navegador.addView(VISTA_INVENTARIO, new VistaInventario(navegador));
-		navegador.addView(VISTA_PRODUCTO, new VistaProductos(navegador));
+		navegador.addView(VISTA_INVENTARIO, new VistaInventario(navegador, servicioGestorInventario));
+		navegador.addView(VISTA_PRODUCTO, new VistaProductos(navegador, servicioGestorProductos));
+		
+		
 	}
 
 	@WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)

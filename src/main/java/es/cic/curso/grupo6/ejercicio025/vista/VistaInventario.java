@@ -10,6 +10,8 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.MenuBar.Command;
 import com.vaadin.ui.MenuBar.MenuItem;
 
+import es.cic.curso.grupo6.ejercicio025.servicio.ServicioGestorInventario;
+import es.cic.curso.grupo6.ejercicio025.servicio.ServicioGestorProductos;
 import es.cic.curso.grupo6.ejercicio025.vista.MyUI;
 
 public class VistaInventario extends VerticalLayout implements View {
@@ -21,32 +23,26 @@ public class VistaInventario extends VerticalLayout implements View {
 	private static final long serialVersionUID = -3554081767202657813L;
 	private ServicioGestorInventario servicioGestorInventario;
 	
-	private ServicioGestorProducto servicioGestorProducto;
+	private ServicioGestorProductos servicioGestorProducto;
 	@SuppressWarnings("serial")
-	public VistaInventario(Navigator navegador,ServicioGestorInventario  servicioInventario,
-			ServicioGestorProducto servicioProducto) {
+	public VistaInventario(Navigator navegador,ServicioGestorInventario  servicioInventario) {
 		
 		this.servicioGestorInventario = servicioGestorInventario;
-		this.servicioGestorProducto = servicioGestorProducto;
+		
 		
 		// Navegación entre las vistas de la aplicación:
 		MenuBar menuNavegacion = new MenuBar();
 		menuNavegacion.setWidth(100.0F, Unit.PERCENTAGE);
 		menuNavegacion.setHeight(100.0F, Unit.PERCENTAGE);
-		MenuItem menuItemVistaCine = menuNavegacion.addItem("Cine", null);
-		menuItemVistaCine.setEnabled(false);
 		menuNavegacion.addItem("Tienda", new Command() {
 			@Override
 			public void menuSelected(final MenuItem selectedItem) {
-				navegador.navigateTo(MyUI.VISTA_TIENDA);
+				navegador.navigateTo("");
 			}
 		});
-		menuNavegacion.addItem("Inventario", new Command() {
-			@Override
-			public void menuSelected(final MenuItem selectedItem) {
-				navegador.navigateTo(MyUI.VISTA_INVENTARIO);
-			}
-		});
+		MenuItem menuItemVistaInventario = menuNavegacion.addItem("Inventario", null);
+		menuItemVistaInventario.setEnabled(false);
+		
 		menuNavegacion.addItem("Productos", new Command() {
 			@Override
 			public void menuSelected(final MenuItem selectedItem) {
