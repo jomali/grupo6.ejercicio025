@@ -1,21 +1,15 @@
 package es.cic.curso.grupo6.ejercicio025.vista;
 
-import java.util.List;
-
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.shared.ui.label.ContentMode;
-import com.vaadin.ui.Button;
-import com.vaadin.ui.Grid;
-import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.MenuBar.Command;
 import com.vaadin.ui.MenuBar.MenuItem;
 import com.vaadin.ui.VerticalLayout;
 
-import es.cic.curso.grupo6.ejercicio025.modelo.Venta;
 import es.cic.curso.grupo6.ejercicio025.servicio.ServicioGestorVentas;
 
 public class VistaTienda extends VerticalLayout implements View {
