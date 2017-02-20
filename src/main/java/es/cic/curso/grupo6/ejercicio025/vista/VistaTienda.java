@@ -3,6 +3,8 @@ package es.cic.curso.grupo6.ejercicio025.vista;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
+import com.vaadin.shared.ui.label.ContentMode;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 
 public class VistaTienda extends VerticalLayout implements View {
@@ -14,8 +16,10 @@ public class VistaTienda extends VerticalLayout implements View {
 
 	@Override
 	public void enter(ViewChangeEvent event) {
-		// TODO Auto-generated method stub
+		Label label = new Label("Hola mundo.");
+		label.setContentMode(ContentMode.HTML);
 		
+		addComponent(label);
 	}
 
 }
