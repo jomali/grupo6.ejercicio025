@@ -28,36 +28,34 @@ import es.cic.curso.grupo6.ejercicio025.servicio.ServicioGestorVentas;
 public class MyUI extends UI {
 	private static final long serialVersionUID = -9188348155047637473L;
 
-
 	static final String VISTA_INVENTARIO = "inventario";
 	static final String VISTA_PRODUCTO = "productos";
-	
+
 	/** Gestiona una colección de implementaciones de <code>View</code>. */
 	Navigator navegador;
-	
+
 	private ServicioGestorInventario servicioGestorInventario;
 	private ServicioGestorProductos servicioGestorProductos;
 	private ServicioGestorVentas servicioGestorVentas;
-	
 
 	@Override
 	protected void init(VaadinRequest request) {
-		servicioGestorInventario = ContextLoader.getCurrentWebApplicationContext().getBean(ServicioGestorInventario.class);
-		servicioGestorProductos = ContextLoader.getCurrentWebApplicationContext().getBean(ServicioGestorProductos.class);
+		servicioGestorInventario = ContextLoader.getCurrentWebApplicationContext()
+				.getBean(ServicioGestorInventario.class);
+		servicioGestorProductos = ContextLoader.getCurrentWebApplicationContext()
+				.getBean(ServicioGestorProductos.class);
 		servicioGestorVentas = ContextLoader.getCurrentWebApplicationContext().getBean(ServicioGestorVentas.class);
 
-
 		getPage().setTitle("Badulaque");
-		
+
 		// Crea el navegador para controlar las vistas:
 		navegador = new Navigator(this, this);
-				
+
 		// Crea y registra las vistas:
 		navegador.addView("", new VistaTienda(navegador));
 		navegador.addView(VISTA_INVENTARIO, new VistaInventario(navegador, servicioGestorInventario));
 		navegador.addView(VISTA_PRODUCTO, new VistaProductos(navegador, servicioGestorProductos));
-		
-		
+
 	}
 
 	@WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)

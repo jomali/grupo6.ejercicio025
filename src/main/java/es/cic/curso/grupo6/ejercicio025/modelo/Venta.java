@@ -7,7 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -30,7 +30,7 @@ public class Venta implements Identificable<Long> {
 	
 	/** Referencia al tipo de producto. */
 	@JoinColumn(name = "id_producto")
-	@OneToMany(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY)
 	private Producto producto;
 
 	/** Número de unidades vendidas. */
