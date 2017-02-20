@@ -69,38 +69,38 @@ public class VistaProductos extends VerticalLayout implements View {
 	}
 
 	
-	 private VerticalLayout creaTabProductos() { final VerticalLayout result =
-	 new VerticalLayout(); result.setMargin(true); result.setSpacing(true);
-	 result.setSizeFull();
-	 
-	 maestro = new Grid(); maestro.setColumns("nombre", "precio", "cantidad");
-	 maestro.setSizeFull();
-	 
-	 maestro.setFrozenColumnCount(1);
-	 maestro.setSelectionMode(SelectionMode.SINGLE);
-	 
-	 addBtn = new Button("Añadir producto"); cancelar = new
-	 Button("Cancelar"); cancelar.setVisible(false);
-	 
-	 maestro.addSelectionListener(e -> { Producto p = null; if
-	 (!e.getSelected().isEmpty()) { p = (Producto)
-	 e.getSelected().iterator().next(); addBtn.setVisible(false); } else {
-	 addBtn.setVisible(true); } detalle.mostrarBotones();
-	 detalle.setProducto(p); }); detalle = new ProductoForm(this);
-	 
-	 cancelar.addClickListener(e -> { Producto p = null;
-	 detalle.setProducto(p); addBtn.setVisible(true);
-	 cancelar.setVisible(false); });
-	 
-	 addBtn.addClickListener(e -> { addBtn.setVisible(false);
-	 detalle.ocultarBotones(); cancelar.setVisible(true); aniadirGrid(); });
-	 
-	 addBtn.setIcon(FontAwesome.FILM);
-	 
-	 result.addComponents(maestro, detalle, addBtn, cancelar);
-	 result.setMargin(true); result.setSpacing(true); result.setWidth("100%");
-	 
-	 return result; }
+//	 private VerticalLayout creaTabProductos() { final VerticalLayout result =
+//	 new VerticalLayout(); result.setMargin(true); result.setSpacing(true);
+//	 result.setSizeFull();
+//	 
+//	 maestro = new Grid(); maestro.setColumns("nombre", "precio", "cantidad");
+//	 maestro.setSizeFull();
+//	 
+//	 maestro.setFrozenColumnCount(1);
+//	 maestro.setSelectionMode(SelectionMode.SINGLE);
+//	 
+//	 addBtn = new Button("Añadir producto"); cancelar = new
+//	 Button("Cancelar"); cancelar.setVisible(false);
+//	 
+//	 maestro.addSelectionListener(e -> { Producto p = null; if
+//	 (!e.getSelected().isEmpty()) { p = (Producto)
+//	 e.getSelected().iterator().next(); addBtn.setVisible(false); } else {
+//	 addBtn.setVisible(true); } detalle.mostrarBotones();
+//	 detalle.setProducto(p); }); detalle = new ProductoForm(this);
+//	 
+//	 cancelar.addClickListener(e -> { Producto p = null;
+//	 detalle.setProducto(p); addBtn.setVisible(true);
+//	 cancelar.setVisible(false); });
+//	 
+//	 addBtn.addClickListener(e -> { addBtn.setVisible(false);
+//	 detalle.ocultarBotones(); cancelar.setVisible(true); aniadirGrid(); });
+//	 
+//	 addBtn.setIcon(FontAwesome.FILM);
+//	 
+//	 result.addComponents(maestro, detalle, addBtn, cancelar);
+//	 result.setMargin(true); result.setSpacing(true); result.setWidth("100%");
+//	 
+//	 return result; }
 	
 
 	

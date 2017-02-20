@@ -21,17 +21,9 @@ import es.cic.curso.grupo6.ejercicio025.servicio.ServicioGestorVentas;
 public class VistaTienda extends VerticalLayout implements View {
 	private static final long serialVersionUID = -4756028504271319024L;
 
-	private Grid maestro;
-
-	/* private ProductoForm detalle; */
-
-	private List<Venta> listaVentas;
 	ServicioGestorVentas servicioGestorVentas;
 
-	private Button addBtn;
-	private Button cancelar;
-
-
+	@SuppressWarnings("serial")
 	public VistaTienda(Navigator navegador, ServicioGestorVentas servicioGestorVentas) {
 		this.servicioGestorVentas = servicioGestorVentas;
 
@@ -51,7 +43,7 @@ public class VistaTienda extends VerticalLayout implements View {
 				navegador.navigateTo(MyUI.VISTA_INVENTARIO);
 			}
 		});
-		
+
 		menuNavegacion.addItem("Productos", new Command() {
 			@Override
 			public void menuSelected(final MenuItem selectedItem) {
@@ -59,18 +51,15 @@ public class VistaTienda extends VerticalLayout implements View {
 			}
 		});
 		addComponent(menuNavegacion);
-		
-		HorizontalLayout contentLayout = new HorizontalLayout();
-		contentLayout.setMargin(true);
-		contentLayout.setSpacing(true);
-		
-	}
-	@Override
-	public void enter(ViewChangeEvent event) {
+
 		Label label = new Label("Hola mundo.");
 		label.setContentMode(ContentMode.HTML);
-		
+
 		addComponent(label);
+	}
+
+	@Override
+	public void enter(ViewChangeEvent event) {
 	}
 
 }

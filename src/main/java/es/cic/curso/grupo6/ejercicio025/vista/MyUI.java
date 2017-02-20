@@ -40,10 +40,8 @@ public class MyUI extends UI {
 
 	@Override
 	protected void init(VaadinRequest request) {
-		servicioGestorInventario = ContextLoader.getCurrentWebApplicationContext()
-				.getBean(ServicioGestorInventario.class);
-		servicioGestorProductos = ContextLoader.getCurrentWebApplicationContext()
-				.getBean(ServicioGestorProductos.class);
+		servicioGestorInventario = ContextLoader.getCurrentWebApplicationContext().getBean(ServicioGestorInventario.class);
+		servicioGestorProductos = ContextLoader.getCurrentWebApplicationContext().getBean(ServicioGestorProductos.class);
 		servicioGestorVentas = ContextLoader.getCurrentWebApplicationContext().getBean(ServicioGestorVentas.class);
 
 		getPage().setTitle("Badulaque");
