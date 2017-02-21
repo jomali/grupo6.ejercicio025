@@ -70,6 +70,7 @@ public class MyUI extends UI {
 	}
 
 	private void cargaBD() {
+		if (!servicioGestorTienda.listaProductos().isEmpty()) return;
 		Producto p1 = new Producto();
 		p1.setNombre("Galletas Príncipe");
 		p1.setPrecio(2.5F);
