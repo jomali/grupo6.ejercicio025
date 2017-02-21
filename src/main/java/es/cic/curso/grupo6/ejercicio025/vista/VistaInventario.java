@@ -1,30 +1,36 @@
 package es.cic.curso.grupo6.ejercicio025.vista;
 
+import java.util.List;
+
+import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
-import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.Grid.SelectionMode;
 import com.vaadin.ui.MenuBar.Command;
 import com.vaadin.ui.MenuBar.MenuItem;
 
+import es.cic.curso.grupo6.ejercicio025.modelo.Inventario;
+import es.cic.curso.grupo6.ejercicio025.modelo.Producto;
 import es.cic.curso.grupo6.ejercicio025.servicio.ServicioGestorInventario;
-import es.cic.curso.grupo6.ejercicio025.servicio.ServicioGestorProductos;
+import es.cic.curso.grupo6.ejercicio025.servicio.ServicioGestorTienda;
 import es.cic.curso.grupo6.ejercicio025.vista.MyUI;
 
 public class VistaInventario extends VerticalLayout implements View {
-
 	private static final long serialVersionUID = -3554081767202657813L;
 	
 	private ServicioGestorInventario servicioGestorInventario;
+	private ServicioGestorTienda servicioGestorProducto;
 	private Grid gridAlmacen;
 	private Grid gridTienda;
+	
 
 	@SuppressWarnings("serial")
-	public VistaInventario(Navigator navegador,ServicioGestorInventario  servicioInventario) {
+	public VistaInventario(Navigator navegador, ServicioGestorInventario  servicioGestorInventario) {
 		
 		this.servicioGestorInventario = servicioGestorInventario;
 		
@@ -48,20 +54,68 @@ public class VistaInventario extends VerticalLayout implements View {
 			}
 		});
 		addComponent(menuNavegacion);
+//		addComponent(creaGridsEnLayouts());
 		
-		//Creación de Grids
-		HorizontalLayout contentLayout = new HorizontalLayout();
-		contentLayout.setMargin(true);
-		contentLayout.setSpacing(true);
-		contentLayout.addComponent(gridAlmacen);
-		addComponent(contentLayout);
+		// Creación de Grids
+//		HorizontalLayout contentLayout = new HorizontalLayout();
+//		contentLayout.setMargin(true);
+//		contentLayout.setSpacing(true);
+//		contentLayout.addComponent(gridAlmacen);
+//		addComponent(contentLayout);
 		
 	}
 
+//	private HorizontalLayout creaGridsEnLayouts() {
+//		HorizontalLayout resultado = new HorizontalLayout();
+//		resultado.setMargin(true);
+//		resultado.setSpacing(true);
+//		resultado.setSizeFull();
+//		
+//		creaLayoutALmacen();
+//		creaLayoutTienda();
+//		
+//		resultado.addComponent(gridAlmacen);
+//		return resultado;
+//		
+//	}
+//	
+//	private VerticalLayout creaLayoutALmacen() {
+//		VerticalLayout resultado = new VerticalLayout();
+//		resultado.setMargin(true);
+//		resultado.setSpacing(true);
+//		resultado.setSizeFull();
+//
+//		gridTienda = new Grid();
+//		gridTienda.setColumns("id", "nombre", "cantidad");
+//		gridTienda.setSizeFull();
+//		gridTienda.setSelectionMode(SelectionMode.SINGLE);
+//		resultado.addComponent(gridTienda);
+//
+//		return resultado;
+//	}
+//	
+//	private VerticalLayout creaLayoutTienda() {
+//		VerticalLayout resultado = new VerticalLayout();
+//		resultado.setMargin(true);
+//		resultado.setSpacing(true);
+//		resultado.setSizeFull();
+//
+//		gridAlmacen = new Grid();
+//		gridAlmacen.setColumns("id", "nombre", "cantidad");
+//		gridAlmacen.setSizeFull();
+//		gridAlmacen.setSelectionMode(SelectionMode.SINGLE);
+//		resultado.addComponent(gridAlmacen);
+//
+//		return resultado;
+//	}
 	@Override
 	public void enter(ViewChangeEvent event) {
-		// TODO Auto-generated method stub
+		cargaGrid();
 		
 	}
 
+	public void cargaGrid() {
+		List<Producto> productos = servicioGestorProducto.listaProductos();
+		gridAlmacen.setContainerDataSource(new BeanItemContainer<>(Producto.class, productos));
+	}
 }

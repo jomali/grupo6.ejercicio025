@@ -1,13 +1,15 @@
 package es.cic.curso.grupo6.ejercicio025.servicio;
 
-import java.util.List;
-
-import es.cic.curso.grupo6.ejercicio025.modelo.Producto;
+import es.cic.curso.grupo6.ejercicio025.modelo.Inventario;
 
 public interface ServicioGestorInventario {
-
-	public List<Producto> obtenListaAlmacen();
-
-	public List<Producto> obtenListaTienda();
+	
+	Inventario obtenEntradaInventario(Long idProducto, Long idAlmacen);
+	
+	Inventario obtenEntradaInventario(Long id);
+	
+	void estableceCantidadProductos(Long idProducto, Long idAlmacen, int cantidad);
+	
+	int modificaCantidadProductos(Long idProducto, Long idAlmacen, int delta);
 	
 }

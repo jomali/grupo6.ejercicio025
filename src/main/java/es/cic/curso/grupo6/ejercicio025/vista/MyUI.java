@@ -11,8 +11,9 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.UI;
 
+import es.cic.curso.grupo6.ejercicio025.modelo.Almacen;
 import es.cic.curso.grupo6.ejercicio025.servicio.ServicioGestorInventario;
-import es.cic.curso.grupo6.ejercicio025.servicio.ServicioGestorProductos;
+import es.cic.curso.grupo6.ejercicio025.servicio.ServicioGestorTienda;
 import es.cic.curso.grupo6.ejercicio025.servicio.ServicioGestorVentas;
 
 /**
@@ -35,14 +36,18 @@ public class MyUI extends UI {
 	Navigator navegador;
 
 	private ServicioGestorInventario servicioGestorInventario;
-	private ServicioGestorProductos servicioGestorProductos;
+	private ServicioGestorTienda servicioGestorTienda;
 	private ServicioGestorVentas servicioGestorVentas;
+	
+	private Almacen almacen;
+	private Almacen tienda;
 
 	@Override
 	protected void init(VaadinRequest request) {
 		servicioGestorInventario = ContextLoader.getCurrentWebApplicationContext().getBean(ServicioGestorInventario.class);
-		servicioGestorProductos = ContextLoader.getCurrentWebApplicationContext().getBean(ServicioGestorProductos.class);
+		servicioGestorTienda = ContextLoader.getCurrentWebApplicationContext().getBean(ServicioGestorTienda.class);
 		servicioGestorVentas = ContextLoader.getCurrentWebApplicationContext().getBean(ServicioGestorVentas.class);
+		cargaBD();
 
 		getPage().setTitle("Badulaque");
 
@@ -50,10 +55,15 @@ public class MyUI extends UI {
 		navegador = new Navigator(this, this);
 
 		// Crea y registra las vistas:
-		navegador.addView("", new VistaTienda(navegador, servicioGestorVentas));
+		navegador.addView("", new VistaTienda(navegador, servicioGestorTienda, servicioGestorVentas));
 		navegador.addView(VISTA_INVENTARIO, new VistaInventario(navegador, servicioGestorInventario));
-		navegador.addView(VISTA_PRODUCTO, new VistaProductos(navegador, servicioGestorProductos));
-
+		navegador.addView(VISTA_PRODUCTO, new VistaProductos(navegador, servicioGestorTienda));
+	}
+	
+	private void cargaBD() {
+		servicioGestorTienda.agregaProducto("El guardián entre el centeno", 12.5F);
+		servicioGestorTienda.agregaProducto("Jerusalem", 25.0F);
+		servicioGestorTienda.agregaProducto("Nords", 20.0F);
 	}
 
 	@WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)
