@@ -8,6 +8,7 @@ import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.MenuBar;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.MenuBar.Command;
 import com.vaadin.ui.MenuBar.MenuItem;
 import com.vaadin.ui.VerticalLayout;
@@ -28,7 +29,7 @@ public class VistaTienda extends VerticalLayout implements View {
 	private ServicioGestorVentas servicioGestorVentas;
 	private Almacen almacen;
 	private Almacen tienda;
-	
+
 	private FormularioVenta detalle;
 
 	/** <em>Grid</em> con los productos registrados en el sistema. */
@@ -38,7 +39,7 @@ public class VistaTienda extends VerticalLayout implements View {
 
 	@SuppressWarnings("serial")
 	public VistaTienda(Navigator navegador, ServicioGestorTienda servicioGestorTienda,
-			ServicioGestorInventario servicioGestorInventario, ServicioGestorVentas servicioGestorVentas, 
+			ServicioGestorInventario servicioGestorInventario, ServicioGestorVentas servicioGestorVentas,
 			Almacen almacen, Almacen tienda) {
 		this.servicioGestorTienda = servicioGestorTienda;
 		this.servicioGestorInventario = servicioGestorInventario;
@@ -95,7 +96,7 @@ public class VistaTienda extends VerticalLayout implements View {
 		gridInventario.setHeight(150.0F, Unit.PIXELS);
 		gridInventario.setSelectionMode(SelectionMode.NONE);
 		gridInventario.setVisible(false);
-		
+
 		detalle = new FormularioVenta(this);
 
 		gridProductos.addSelectionListener(e -> {
@@ -118,9 +119,26 @@ public class VistaTienda extends VerticalLayout implements View {
 		List<Producto> productos = servicioGestorTienda.listaProductos();
 		gridProductos.setContainerDataSource(new BeanItemContainer<>(Producto.class, productos));
 	}
-	
+
 	public void vendeProducto(Producto producto, int cantidad) {
+		Inventario entradaTienda = servicioGestorInventario.obtenEntradaInventario(producto.getId(), tienda.getId());
+		Inventario entradaAlmacen = servicioGestorInventario.obtenEntradaInventario(producto.getId(), almacen.getId());
 		
+		if (entradaTienda.getCantidad() + entradaAlmacen.getCantidad() < cantidad) {
+			Notification.show("No hay existencias suficientes");
+			return;
+		}
+		
+		if (entradaTienda.getCantidad() >= cantidad) {
+			servicioGestorVentas.vende(producto.getId(), tienda.getId(), cantidad);
+			Notification.show("Vendidas: " + cantidad + " uds.");
+			return;
+		}
+		
+		int restante = cantidad - entradaTienda.getCantidad();
+		servicioGestorVentas.vende(producto.getId(), tienda.getId(), entradaTienda.getCantidad());
+		servicioGestorVentas.vende(producto.getId(), almacen.getId(), restante);
+		Notification.show("Vendidas: " + cantidad + " uds.");
 	}
 
 	private void cargaGridInventario(Producto producto) {

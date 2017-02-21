@@ -50,8 +50,10 @@ public class MyUI extends UI {
 		servicioGestorTienda = ContextLoader.getCurrentWebApplicationContext().getBean(ServicioGestorTienda.class);
 		servicioGestorVentas = ContextLoader.getCurrentWebApplicationContext().getBean(ServicioGestorVentas.class);
 		almacen = new Almacen();
+		almacen.setNombre("Almacén principal");
 		almacen.setCapacidad(1000);
 		tienda = new Almacen();
+		tienda.setNombre("Tienda");
 		tienda.setCapacidad(100);
 		servicioGestorTienda.agregaAlmacen(almacen);
 		servicioGestorTienda.agregaAlmacen(tienda);
@@ -70,6 +72,7 @@ public class MyUI extends UI {
 	}
 
 	private void cargaBD() {
+		if (!servicioGestorTienda.listaProductos().isEmpty()) return;
 		Producto p1 = new Producto();
 		p1.setNombre("Galletas Príncipe");
 		p1.setPrecio(2.5F);
