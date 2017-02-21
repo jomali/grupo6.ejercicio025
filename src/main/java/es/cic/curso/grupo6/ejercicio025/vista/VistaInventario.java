@@ -135,6 +135,7 @@ public class VistaInventario extends VerticalLayout implements View {
 
 			} catch (Exception o) {
 				Notification.show("De verdad? Inténtalo otra vez.");
+				movemos.setValue("");
 			}
 		});
 
