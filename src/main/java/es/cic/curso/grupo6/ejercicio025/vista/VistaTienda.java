@@ -22,17 +22,19 @@ import es.cic.curso.grupo6.ejercicio025.servicio.ServicioGestorVentas;
 public class VistaTienda extends VerticalLayout implements View {
 	private static final long serialVersionUID = -4756028504271319024L;
 
-	ServicioGestorTienda servicioGestorTienda;
-	ServicioGestorInventario servicioGestorInventario;
-	ServicioGestorVentas servicioGestorVentas;
+	private ServicioGestorTienda servicioGestorTienda;
+	private ServicioGestorInventario servicioGestorInventario;
+	private ServicioGestorVentas servicioGestorVentas;
+	
+	private FormularioVenta detalle;
 
 	/** <em>Grid</em> con los productos registrados en el sistema. */
 	private Grid gridProductos;
-	
+
 	private Grid gridInventario;
 
 	@SuppressWarnings("serial")
-	public VistaTienda(Navigator navegador, ServicioGestorTienda servicioGestorTienda, 
+	public VistaTienda(Navigator navegador, ServicioGestorTienda servicioGestorTienda,
 			ServicioGestorInventario servicioGestorInventario, ServicioGestorVentas servicioGestorVentas) {
 		this.servicioGestorTienda = servicioGestorTienda;
 		this.servicioGestorVentas = servicioGestorVentas;
@@ -57,6 +59,7 @@ public class VistaTienda extends VerticalLayout implements View {
 		addComponent(menuNavegacion);
 
 		addComponent(creaLayoutVenta());
+		addComponent(detalle);
 	}
 
 	@Override
@@ -77,25 +80,26 @@ public class VistaTienda extends VerticalLayout implements View {
 		gridProductos.setSelectionMode(SelectionMode.SINGLE);
 		gridProductos.setVisible(true);
 
-		gridProductos.addSelectionListener(e -> {
-			Producto p = null;
-			if (!e.getSelected().isEmpty()) {
-				p = (Producto) e.getSelected().iterator().next();
-				cargaGridInventario(p);
-				gridInventario.setVisible(true);
-			} else {
-				gridInventario.setVisible(false);
-			}
-//			detalle.mostrarBotones();
-//			detalle.setPelicula(p);
-		});
-		
 		gridInventario = new Grid();
 		gridInventario.setCaption("Disponibilidad:");
 		gridInventario.setColumns("id", "producto", "almacen", "cantidad");
 		gridInventario.setWidth(100.0F, Unit.PERCENTAGE);
 		gridInventario.setSelectionMode(SelectionMode.NONE);
 		gridInventario.setVisible(false);
+		
+		detalle = new FormularioVenta(this);
+
+		gridProductos.addSelectionListener(e -> {
+			Producto producto = null;
+			if (!e.getSelected().isEmpty()) {
+				producto = (Producto) e.getSelected().iterator().next();
+//				gridInventario.setVisible(true);
+//				cargaGridInventario(producto);
+			} else {
+//				gridInventario.setVisible(false);
+			}
+			detalle.setProducto(producto);
+		});
 
 		resultado.addComponents(gridProductos, gridInventario);
 		return resultado;
@@ -105,8 +109,8 @@ public class VistaTienda extends VerticalLayout implements View {
 		List<Producto> productos = servicioGestorTienda.listaProductos();
 		gridProductos.setContainerDataSource(new BeanItemContainer<>(Producto.class, productos));
 	}
-	
-	public void cargaGridInventario(Producto producto) {
+
+	private void cargaGridInventario(Producto producto) {
 		List<Inventario> entradasInventario = servicioGestorInventario.listaEntradasPorProducto(producto.getId());
 		gridInventario.setContainerDataSource(new BeanItemContainer<>(Inventario.class, entradasInventario));
 	}
