@@ -22,12 +22,12 @@ public class Inventario implements Identificable<Long> {
 
 	/** Referencia al tipo de producto almacenado en inventario. */
 	@JoinColumn(name = "id_producto")
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.EAGER)
 	private Producto producto;
 
 	/** Referencia al tipo de producto almacenado en inventario. */
 	@JoinColumn(name = "id_almacen")
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.EAGER)
 	private Almacen almacen;
 
 	/** Cantidad de productos del tipo <code>producto</code> almacenados. */
@@ -90,6 +90,12 @@ public class Inventario implements Identificable<Long> {
 	 */
 	public void setCantidad(int cantidad) {
 		this.cantidad = cantidad;
+	}
+
+	@Override
+	public String toString() {
+		return "Inventario [id=" + id + ", producto=" + producto + ", almacen=" + almacen + ", cantidad=" + cantidad
+				+ "]";
 	}
 
 }

@@ -99,4 +99,9 @@ public class Venta implements Identificable<Long> {
 		this.importe = importe;
 	}
 
+	@Override
+	public String toString() {
+		return "Venta [id=" + id + ", producto=" + producto + ", unidades=" + unidades + ", importe=" + importe + "]";
+	}
+
 }

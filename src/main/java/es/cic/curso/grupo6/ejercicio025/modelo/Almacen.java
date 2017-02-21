@@ -78,4 +78,9 @@ public class Almacen implements Identificable<Long> {
 		this.capacidad = capacidad;
 	}
 
+	@Override
+	public String toString() {
+		return "Almacen [id=" + id + ", nombre=" + nombre + ", capacidad=" + capacidad + "]";
+	}
+
 }
