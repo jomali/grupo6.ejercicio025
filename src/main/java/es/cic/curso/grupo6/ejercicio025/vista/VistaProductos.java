@@ -27,10 +27,15 @@ public class VistaProductos extends VerticalLayout implements View {
 
 	/** <em>Grid</em> con los productos registrados en el sistema. */
 	private Grid gridProductos;
-
+	
+	private Button botonQuitar;
+	
+	private Producto producto;
+	
+	private ServicioGestorTienda servicioGestorTienda;
 	@SuppressWarnings("serial")
-	public VistaProductos(Navigator navegador, ServicioGestorTienda servicioGestorProductos) {
-		this.servicioGestorProductos = servicioGestorProductos;
+	public VistaProductos(Navigator navegador, ServicioGestorTienda servicioGestorTienda) {
+		this.servicioGestorTienda = servicioGestorTienda;
 
 		// Navegación entre las vistas de la aplicación:
 		MenuBar menuNavegacion = new MenuBar();
@@ -70,6 +75,18 @@ public class VistaProductos extends VerticalLayout implements View {
 		gridProductos.setColumns("id", "nombre", "precio");
 		gridProductos.setSizeFull();
 		gridProductos.setSelectionMode(SelectionMode.SINGLE);
+		gridProductos.setVisible(true);
+		
+//		gridProductos.addSelectionListener(e -> {
+//			Producto p = null;
+//			if (!e.getSelected().isEmpty()) {
+//				p = (Producto) e.getSelected().iterator().next();
+//				botonQuitar.setVisible(true);
+//			} else {
+//				botonQuitar.setVisible(false);
+//			}
+//		});
+			
 		resultado.addComponent(gridProductos);
 
 		return resultado;
@@ -80,6 +97,12 @@ public class VistaProductos extends VerticalLayout implements View {
 		resultado.setMargin(true);
 		resultado.setSpacing(true);
 		
+		Button botonImprimir = new Button();
+		botonImprimir.setCaption("Imprimir Productos");
+		botonImprimir.setIcon(FontAwesome.PRINT);
+		resultado.addComponent(botonImprimir);
+		botonImprimir.setVisible(true);
+		
 		Button botonAnnadir = new Button();
 		botonAnnadir.setCaption("Añadir producto");
 		botonAnnadir.setIcon(FontAwesome.PLUS_CIRCLE);
@@ -88,21 +111,21 @@ public class VistaProductos extends VerticalLayout implements View {
 		Button botonQuitar = new Button();
 		botonQuitar.setCaption("Quitar producto");
 		botonQuitar.setIcon(FontAwesome.MINUS_CIRCLE);
+		botonQuitar.addClickListener(e ->{
+			servicioGestorTienda.eliminaProducto(producto.getId());
+			
+		});
 		resultado.addComponent(botonQuitar);
 		botonQuitar.setVisible(true);
 		
-		Button botonImprimir = new Button();
-		botonImprimir.setCaption("Imprimir Productos");
-		botonImprimir.setIcon(FontAwesome.PRINT);
-		resultado.addComponent(botonImprimir);
-		botonImprimir.setVisible(true);
+
 		
 		
 		return resultado;
 	}
 	
 	public void cargaGrid() {
-		List<Producto> productos = servicioGestorProductos.listaProductos();
+		List<Producto> productos = servicioGestorTienda.listaProductos();
 		gridProductos.setContainerDataSource(new BeanItemContainer<>(Producto.class, productos));
 	}
 
