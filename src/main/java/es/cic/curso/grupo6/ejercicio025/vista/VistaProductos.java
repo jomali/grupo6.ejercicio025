@@ -65,7 +65,6 @@ public class VistaProductos extends VerticalLayout implements View {
 		addComponent(menuNavegacion);
 
 		addComponent(creaLayoutProductos());
-		addComponent(creaButtons());
 	}
 
 	@Override
@@ -85,6 +84,32 @@ public class VistaProductos extends VerticalLayout implements View {
 		gridProductos.setSizeFull();
 		gridProductos.setSelectionMode(SelectionMode.SINGLE);
 		gridProductos.setVisible(true);
+
+		HorizontalLayout horizontalLayout = new HorizontalLayout();
+		horizontalLayout.setMargin(false);
+		horizontalLayout.setSpacing(true);
+		horizontalLayout.setHeight(25.0F, Unit.PERCENTAGE);
+		
+		Button botonImprimir = new Button();
+		botonImprimir.setCaption("Imprimir Productos");
+		botonImprimir.setIcon(FontAwesome.PRINT);
+		horizontalLayout.addComponent(botonImprimir);
+		botonImprimir.setVisible(true);
+		
+		Button botonAnnadir = new Button();
+		botonAnnadir.setCaption("Añadir producto");
+		botonAnnadir.setIcon(FontAwesome.PLUS_CIRCLE);
+		horizontalLayout.addComponent(botonAnnadir);
+		
+		botonQuitar.setCaption("Quitar producto");
+		botonQuitar.setIcon(FontAwesome.MINUS_CIRCLE);
+		botonQuitar.setVisible(false);
+		botonQuitar.setEnabled(false);
+		botonQuitar.addClickListener(p ->{
+//			servicioGestorTienda.eliminaProducto(producto.getId());
+			
+		});
+		horizontalLayout.addComponent(botonQuitar);
 		
 		gridProductos.addSelectionListener(e -> {
 			Producto p = null;
@@ -96,41 +121,8 @@ public class VistaProductos extends VerticalLayout implements View {
 			}
 		});
 			
-		resultado.addComponent(gridProductos);
+		resultado.addComponents(gridProductos, horizontalLayout);
 
-		return resultado;
-	}
-	
-	private HorizontalLayout creaButtons() {
-		HorizontalLayout resultado = new HorizontalLayout();
-		resultado.setMargin(true);
-		resultado.setSpacing(true);
-		resultado.setHeight(25.0F, Unit.PERCENTAGE);
-		
-		Button botonImprimir = new Button();
-		botonImprimir.setCaption("Imprimir Productos");
-		botonImprimir.setIcon(FontAwesome.PRINT);
-		resultado.addComponent(botonImprimir);
-		botonImprimir.setVisible(true);
-		
-		Button botonAnnadir = new Button();
-		botonAnnadir.setCaption("Añadir producto");
-		botonAnnadir.setIcon(FontAwesome.PLUS_CIRCLE);
-		resultado.addComponent(botonAnnadir);
-		
-		botonQuitar.setCaption("Quitar producto");
-		botonQuitar.setIcon(FontAwesome.MINUS_CIRCLE);
-		botonQuitar.setVisible(false);
-		botonQuitar.addClickListener(p ->{
-			servicioGestorTienda.eliminaProducto(producto.getId());
-			
-		});
-		resultado.addComponent(botonQuitar);
-		botonQuitar.setVisible(true);
-		
-
-		
-		
 		return resultado;
 	}
 	
