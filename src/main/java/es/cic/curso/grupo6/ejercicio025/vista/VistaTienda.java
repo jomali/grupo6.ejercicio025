@@ -13,6 +13,7 @@ import com.vaadin.ui.MenuBar.MenuItem;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Grid.SelectionMode;
 
+import es.cic.curso.grupo6.ejercicio025.modelo.Almacen;
 import es.cic.curso.grupo6.ejercicio025.modelo.Inventario;
 import es.cic.curso.grupo6.ejercicio025.modelo.Producto;
 import es.cic.curso.grupo6.ejercicio025.servicio.ServicioGestorInventario;
@@ -25,6 +26,8 @@ public class VistaTienda extends VerticalLayout implements View {
 	private ServicioGestorTienda servicioGestorTienda;
 	private ServicioGestorInventario servicioGestorInventario;
 	private ServicioGestorVentas servicioGestorVentas;
+	private Almacen almacen;
+	private Almacen tienda;
 	
 	private FormularioVenta detalle;
 
@@ -35,9 +38,13 @@ public class VistaTienda extends VerticalLayout implements View {
 
 	@SuppressWarnings("serial")
 	public VistaTienda(Navigator navegador, ServicioGestorTienda servicioGestorTienda,
-			ServicioGestorInventario servicioGestorInventario, ServicioGestorVentas servicioGestorVentas) {
+			ServicioGestorInventario servicioGestorInventario, ServicioGestorVentas servicioGestorVentas, 
+			Almacen almacen, Almacen tienda) {
 		this.servicioGestorTienda = servicioGestorTienda;
+		this.servicioGestorInventario = servicioGestorInventario;
 		this.servicioGestorVentas = servicioGestorVentas;
+		this.almacen = almacen;
+		this.tienda = tienda;
 
 		// Navegación entre las vistas de la aplicación:
 		MenuBar menuNavegacion = new MenuBar();
@@ -77,6 +84,7 @@ public class VistaTienda extends VerticalLayout implements View {
 		gridProductos.setCaption("Lista de productos:");
 		gridProductos.setColumns("id", "nombre", "precio");
 		gridProductos.setWidth(100.0F, Unit.PERCENTAGE);
+		gridProductos.setHeight(300.0F, Unit.PIXELS);
 		gridProductos.setSelectionMode(SelectionMode.SINGLE);
 		gridProductos.setVisible(true);
 
@@ -84,6 +92,7 @@ public class VistaTienda extends VerticalLayout implements View {
 		gridInventario.setCaption("Disponibilidad:");
 		gridInventario.setColumns("id", "producto", "almacen", "cantidad");
 		gridInventario.setWidth(100.0F, Unit.PERCENTAGE);
+		gridInventario.setHeight(150.0F, Unit.PIXELS);
 		gridInventario.setSelectionMode(SelectionMode.NONE);
 		gridInventario.setVisible(false);
 		
@@ -93,10 +102,10 @@ public class VistaTienda extends VerticalLayout implements View {
 			Producto producto = null;
 			if (!e.getSelected().isEmpty()) {
 				producto = (Producto) e.getSelected().iterator().next();
-//				gridInventario.setVisible(true);
-//				cargaGridInventario(producto);
+				gridInventario.setVisible(true);
+				cargaGridInventario(producto);
 			} else {
-//				gridInventario.setVisible(false);
+				gridInventario.setVisible(false);
 			}
 			detalle.setProducto(producto);
 		});
@@ -108,6 +117,10 @@ public class VistaTienda extends VerticalLayout implements View {
 	public void cargaGridProductos() {
 		List<Producto> productos = servicioGestorTienda.listaProductos();
 		gridProductos.setContainerDataSource(new BeanItemContainer<>(Producto.class, productos));
+	}
+	
+	public void vendeProducto(Producto producto, int cantidad) {
+		
 	}
 
 	private void cargaGridInventario(Producto producto) {
