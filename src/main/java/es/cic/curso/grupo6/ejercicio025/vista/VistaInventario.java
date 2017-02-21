@@ -40,6 +40,7 @@ public class VistaInventario extends VerticalLayout implements View {
 	
 	private Button moverTienda;
 	private Button moverAlmacen;
+
 	
 	private TextField movemos;
 
@@ -73,7 +74,7 @@ public class VistaInventario extends VerticalLayout implements View {
 		addComponent(creaLayoutAlmacen());
 		addComponent(creaButtons());
 		addComponent(creaLayoutTienda());
-		addComponent(detalle);
+		//addComponent(detalle);
 		
 
 		// Creación de Grids
@@ -101,7 +102,8 @@ public class VistaInventario extends VerticalLayout implements View {
 				producto = (Producto) e.getSelected().iterator().next();
 
 			}
-			detalle.setProducto(producto);
+			Inventario detalle;
+//			detalle.setProducto(producto);
 		});
 	 resultado.addComponent(label);
 	 resultado.addComponent(gridAlmacen);
@@ -127,7 +129,7 @@ public class VistaInventario extends VerticalLayout implements View {
 				if (Integer.valueOf(movemos.getValue()) > 0) {
 					String cantidad = movemos.getValue();
 					int cantidadNumerica = Integer.parseInt(cantidad);
-					servicioGestorInventario.modificaCantidadProductos(idProducto, idAlmacen,cantidadNumerica )
+					//servicioGestorInventario.modificaCantidadProductos(idProducto, idAlmacen,cantidadNumerica )
 					//movemos.setVisible(false);	
 				} else {
 					Notification.show("Te has equivocado, inténtalo otra vez.");
