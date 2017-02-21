@@ -7,9 +7,11 @@ import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.FontAwesome;
+import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.MenuBar;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.MenuBar.Command;
 import com.vaadin.ui.MenuBar.MenuItem;
 import com.vaadin.ui.VerticalLayout;
@@ -18,6 +20,7 @@ import com.vaadin.ui.HorizontalLayout;
 
 import es.cic.curso.grupo6.ejercicio025.modelo.Producto;
 import es.cic.curso.grupo6.ejercicio025.servicio.ServicioGestorTienda;
+import es.cic.curso.grupo6.ejercicio025.vista.FormularioProducto;
 
 public class VistaProductos extends VerticalLayout implements View {
 	private static final long serialVersionUID = -2185019071795535344L;
@@ -27,10 +30,15 @@ public class VistaProductos extends VerticalLayout implements View {
 
 	/** <em>Grid</em> con los productos registrados en el sistema. */
 	private Grid gridProductos;
+
+	private FormularioProducto detalle;
 	
 	private Button botonQuitar;
 	
 	private Producto producto;
+	private VerticalLayout padre;
+	
+	private List<Producto> listaProductos;
 	
 	private ServicioGestorTienda servicioGestorTienda;
 	@SuppressWarnings("serial")
@@ -62,13 +70,14 @@ public class VistaProductos extends VerticalLayout implements View {
 
 	@Override
 	public void enter(ViewChangeEvent event) {
-		cargaGrid();
+		Notification.show("Lista Productos");
 	}
 
 	private VerticalLayout creaLayoutProductos() {
 		VerticalLayout resultado = new VerticalLayout();
 		resultado.setMargin(true);
 		resultado.setSpacing(true);
+		resultado.setHeight(25.0F, Unit.PERCENTAGE);
 		resultado.setSizeFull();
 
 		gridProductos = new Grid();
@@ -96,6 +105,7 @@ public class VistaProductos extends VerticalLayout implements View {
 		HorizontalLayout resultado = new HorizontalLayout();
 		resultado.setMargin(true);
 		resultado.setSpacing(true);
+		resultado.setHeight(25.0F, Unit.PERCENTAGE);
 		
 		Button botonImprimir = new Button();
 		botonImprimir.setCaption("Imprimir Productos");
@@ -124,9 +134,17 @@ public class VistaProductos extends VerticalLayout implements View {
 		return resultado;
 	}
 	
-	public void cargaGrid() {
+	public void cargaGrid(Producto producto) {
 		List<Producto> productos = servicioGestorTienda.listaProductos();
 		gridProductos.setContainerDataSource(new BeanItemContainer<>(Producto.class, productos));
 	}
+
+	public void borrarGrid(Producto producto2) {
+		listaProductos.remove(producto2);
+		gridProductos.setContainerDataSource(new BeanItemContainer<>(Producto.class, listaProductos));
+		servicioGestorTienda.eliminaProducto(producto2.getId());
+	}
+	
+
 
 }

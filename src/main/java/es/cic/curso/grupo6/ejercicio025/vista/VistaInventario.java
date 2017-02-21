@@ -34,13 +34,13 @@ public class VistaInventario extends VerticalLayout implements View {
 
 	private Almacen almacen;
 	private Almacen tienda;
+	
+	private Inventario inventario;
 
 	private Grid gridAlmacen;
 	private Grid gridTienda;
 	
 	private Button moverTienda;
-	private Button moverAlmacen;
-
 	
 	private TextField movemos;
 
@@ -100,10 +100,9 @@ public class VistaInventario extends VerticalLayout implements View {
 			Producto producto = null;
 			if (!e.getSelected().isEmpty()) {
 				producto = (Producto) e.getSelected().iterator().next();
-
+				//servicioGestorInventario.modificaCantidadProductos(idProducto, idAlmacen, cantidadNumerica);
 			}
-			Inventario detalle;
-//			detalle.setProducto(producto);
+			//detalle.setProducto(producto);
 		});
 	 resultado.addComponent(label);
 	 resultado.addComponent(gridAlmacen);
@@ -129,8 +128,9 @@ public class VistaInventario extends VerticalLayout implements View {
 				if (Integer.valueOf(movemos.getValue()) > 0) {
 					String cantidad = movemos.getValue();
 					int cantidadNumerica = Integer.parseInt(cantidad);
-					//servicioGestorInventario.modificaCantidadProductos(idProducto, idAlmacen,cantidadNumerica )
-					//movemos.setVisible(false);	
+					
+					//servicioGestorInventario.modificaCantidadProductos(idProducto,cantidadNumerica );
+					//servicioGestorInventario.modificaCantidadProductos(idAlmacen,cantidadNumerica );
 				} else {
 					Notification.show("Te has equivocado, inténtalo otra vez.");
 				}
@@ -139,18 +139,7 @@ public class VistaInventario extends VerticalLayout implements View {
 				Notification.show("De verdad? Inténtalo otra vez.");
 			}
         });
-		
-		Button moverAlmacen = new Button();
-		moverAlmacen.setCaption("Quitar producto de Tienda");
-		moverAlmacen.setIcon(FontAwesome.MINUS_CIRCLE);
-		resultado.addComponent(moverAlmacen);
-		moverAlmacen.setVisible(true);
-
-//		tenemos.addClickListener(e ->{
-//			servicioGestorInventario.
-//		
-//			servicioGestorTienda.eliminaProducto(producto.getId());
-		
+	
 		movemos = new TextField();
 		movemos.setVisible(true);
 		resultado.addComponent(movemos);
@@ -168,6 +157,17 @@ public class VistaInventario extends VerticalLayout implements View {
 	 gridTienda.setColumns("id", "almacen", "cantidad");
 	 gridTienda.setSizeFull();
 	 gridTienda.setSelectionMode(SelectionMode.SINGLE);
+	 
+	 gridAlmacen.addSelectionListener(e -> {
+			Producto producto = null;
+			if (!e.getSelected().isEmpty()) {
+				producto = (Producto) e.getSelected().iterator().next();
+				//servicioGestorInventario.modificaCantidadProductos(idProducto, idAlmacen, cantidadNumerica);
+			}
+			//			detalle.setProducto(producto);
+		});
+	 
+	 
 	 resultado.addComponent(label);
 	 resultado.addComponent(gridTienda);
 	
@@ -179,6 +179,8 @@ public class VistaInventario extends VerticalLayout implements View {
 	public void enter(ViewChangeEvent event) {
 		cargaGrid();
 	}
+	
+
 
 	public void cargaGrid() {
 		
