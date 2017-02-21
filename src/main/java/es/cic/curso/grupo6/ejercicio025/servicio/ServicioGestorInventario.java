@@ -1,5 +1,7 @@
 package es.cic.curso.grupo6.ejercicio025.servicio;
 
+import java.util.List;
+
 import es.cic.curso.grupo6.ejercicio025.modelo.Inventario;
 
 public interface ServicioGestorInventario {
@@ -11,5 +13,7 @@ public interface ServicioGestorInventario {
 	void estableceCantidadProductos(Long idProducto, Long idAlmacen, int cantidad);
 	
 	int modificaCantidadProductos(Long idProducto, Long idAlmacen, int delta);
+	
+	List<Inventario> listaEntradasInventario(Long idAlmacen);
 	
 }
