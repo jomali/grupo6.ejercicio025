@@ -39,13 +39,14 @@ public class MyUI extends UI {
 	private ServicioGestorInventario servicioGestorInventario;
 	private ServicioGestorTienda servicioGestorTienda;
 	private ServicioGestorVentas servicioGestorVentas;
-	
+
 	private Almacen almacen;
 	private Almacen tienda;
 
 	@Override
 	protected void init(VaadinRequest request) {
-		servicioGestorInventario = ContextLoader.getCurrentWebApplicationContext().getBean(ServicioGestorInventario.class);
+		servicioGestorInventario = ContextLoader.getCurrentWebApplicationContext()
+				.getBean(ServicioGestorInventario.class);
 		servicioGestorTienda = ContextLoader.getCurrentWebApplicationContext().getBean(ServicioGestorTienda.class);
 		servicioGestorVentas = ContextLoader.getCurrentWebApplicationContext().getBean(ServicioGestorVentas.class);
 		almacen = new Almacen();
@@ -62,37 +63,38 @@ public class MyUI extends UI {
 		navegador = new Navigator(this, this);
 
 		// Crea y registra las vistas:
-		navegador.addView("", new VistaTienda(navegador, servicioGestorTienda, servicioGestorVentas));
+		navegador.addView("",
+				new VistaTienda(navegador, servicioGestorTienda, servicioGestorInventario, servicioGestorVentas));
 		navegador.addView(VISTA_INVENTARIO, new VistaInventario(navegador, almacen, tienda, servicioGestorInventario));
 		navegador.addView(VISTA_PRODUCTO, new VistaProductos(navegador, servicioGestorTienda));
 	}
-	
+
 	private void cargaBD() {
 		Producto p1 = new Producto();
 		p1.setNombre("Galletas Príncipe");
 		p1.setPrecio(2.5F);
 		servicioGestorTienda.agregaProducto(p1);
-		
+
 		Producto p2 = new Producto();
 		p2.setNombre("Café Fortaleza");
 		p2.setPrecio(2.10F);
 		servicioGestorTienda.agregaProducto(p2);
-		
+
 		Producto p3 = new Producto();
 		p3.setNombre("Espárragos Cojonudos");
 		p3.setPrecio(8.90F);
 		servicioGestorTienda.agregaProducto(p3);
-		
+
 		Producto p4 = new Producto();
 		p4.setNombre("Dulce de Leche Havanna");
 		p4.setPrecio(4.90F);
 		servicioGestorTienda.agregaProducto(p4);
-		
+
 		Producto p5 = new Producto();
 		p5.setNombre("Donuts Chocolate");
 		p5.setPrecio(1.99F);
 		servicioGestorTienda.agregaProducto(p5);
-		
+
 		servicioGestorInventario.estableceCantidadProductos(p1.getId(), almacen.getId(), 100);
 		servicioGestorInventario.estableceCantidadProductos(p1.getId(), tienda.getId(), 8);
 		servicioGestorInventario.estableceCantidadProductos(p2.getId(), almacen.getId(), 80);
