@@ -67,12 +67,14 @@ public class MyUI extends UI {
 		// Crea y registra las vistas:
 		navegador.addView("", new VistaTienda(navegador, servicioGestorTienda, servicioGestorInventario,
 				servicioGestorVentas, almacen, tienda));
-		navegador.addView(VISTA_INVENTARIO, new VistaInventario(navegador, almacen, tienda, servicioGestorInventario));
+		navegador.addView(VISTA_INVENTARIO,
+				new VistaInventario(navegador, almacen, tienda, servicioGestorInventario));
 		navegador.addView(VISTA_PRODUCTO, new VistaProductos(navegador, servicioGestorTienda));
 	}
 
 	private void cargaBD() {
-		if (!servicioGestorTienda.listaProductos().isEmpty()) return;
+		if (!servicioGestorTienda.listaProductos().isEmpty())
+			return;
 		Producto p1 = new Producto();
 		p1.setNombre("Galletas Príncipe");
 		p1.setPrecio(2.5F);

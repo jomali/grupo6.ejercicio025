@@ -23,6 +23,7 @@ import es.cic.curso.grupo6.ejercicio025.modelo.Almacen;
 import es.cic.curso.grupo6.ejercicio025.modelo.Inventario;
 import es.cic.curso.grupo6.ejercicio025.modelo.Producto;
 import es.cic.curso.grupo6.ejercicio025.servicio.ServicioGestorInventario;
+import es.cic.curso.grupo6.ejercicio025.servicio.ServicioGestorTienda;
 import es.cic.curso.grupo6.ejercicio025.vista.MyUI;
 
 public class VistaInventario extends VerticalLayout implements View {
@@ -33,7 +34,7 @@ public class VistaInventario extends VerticalLayout implements View {
 	private Almacen almacen;
 	private Almacen tienda;
 
-	private Inventario inventario;
+	private Inventario entradaSeleccionada;
 
 	private Grid gridAlmacen;
 	private Grid gridTienda;
@@ -72,14 +73,6 @@ public class VistaInventario extends VerticalLayout implements View {
 		addComponent(creaLayoutAlmacen());
 		addComponent(creaButtons());
 		addComponent(creaLayoutTienda());
-		// addComponent(detalle);
-
-		// Creación de Grids
-		// HorizontalLayout contentLayout = new HorizontalLayout();
-		// contentLayout.setMargin(true);
-		// contentLayout.setSpacing(true);
-		// contentLayout.addComponent(gridAlmacen);
-		// addComponent(contentLayout);
 	}
 
 	@Override
@@ -99,17 +92,19 @@ public class VistaInventario extends VerticalLayout implements View {
 		gridAlmacen.setSelectionMode(SelectionMode.SINGLE);
 
 		gridAlmacen.addSelectionListener(e -> {
-			Producto producto = null;
+			Inventario inventario = null;
 			if (!e.getSelected().isEmpty()) {
-				producto = (Producto) e.getSelected().iterator().next();
+				inventario = (Inventario) e.getSelected().iterator().next();
 				moverTienda.setEnabled(true);
-				// servicioGestorInventario.modificaCantidadProductos(idProducto,
-				// idAlmacen, cantidadNumerica);
+
+				int cantidad = 1; // TODO
+
+				Producto producto = inventario.getProducto();
+				servicioGestorInventario.modificaCantidadProductos(producto.getId(), almacen.getId(), -cantidad);
+				servicioGestorInventario.modificaCantidadProductos(producto.getId(), tienda.getId(), +cantidad);
 			} else {
 				moverTienda.setEnabled(false);
 			}
-			
-			// detalle.setProducto(producto);
 		});
 		resultado.addComponent(label);
 		resultado.addComponent(gridAlmacen);
@@ -124,8 +119,7 @@ public class VistaInventario extends VerticalLayout implements View {
 
 		moverTienda = new Button();
 		moverTienda.setCaption("Añadir producto a Tienda");
-		moverTienda.setIcon(FontAwesome.PLUS_CIRCLE);
-		resultado.addComponent(moverTienda);
+		moverTienda.setIcon(FontAwesome.ARROW_DOWN);
 		moverTienda.setVisible(true);
 		moverTienda.setEnabled(false);
 		moverTienda.addClickListener(e -> {
@@ -148,9 +142,10 @@ public class VistaInventario extends VerticalLayout implements View {
 		});
 
 		movemos = new TextField();
+		movemos.setInputPrompt("Cantidad");
 		movemos.setVisible(true);
-		resultado.addComponent(movemos);
 
+		resultado.addComponents(movemos, moverTienda);
 		return resultado;
 	}
 
@@ -161,19 +156,9 @@ public class VistaInventario extends VerticalLayout implements View {
 		resultado.setSizeFull();
 		Label label = new Label("Inventario Tienda");
 		gridTienda = new Grid();
-		gridTienda.setColumns("id", "almacen", "cantidad");
+		gridTienda.setColumns("id", "producto", "cantidad");
 		gridTienda.setSizeFull();
-		gridTienda.setSelectionMode(SelectionMode.SINGLE);
-
-		gridAlmacen.addSelectionListener(e -> {
-			Producto producto = null;
-			if (!e.getSelected().isEmpty()) {
-				producto = (Producto) e.getSelected().iterator().next();
-				// servicioGestorInventario.modificaCantidadProductos(idProducto,
-				// idAlmacen, cantidadNumerica);
-			}
-			// detalle.setProducto(producto);
-		});
+		gridTienda.setSelectionMode(SelectionMode.NONE);
 
 		resultado.addComponent(label);
 		resultado.addComponent(gridTienda);
