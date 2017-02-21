@@ -14,6 +14,8 @@ public interface ServicioGestorInventario {
 	
 	int modificaCantidadProductos(Long idProducto, Long idAlmacen, int delta);
 	
-	List<Inventario> listaEntradasInventario(Long idAlmacen);
+	List<Inventario> listaEntradasPorAlmacen(Long idAlmacen);
+	
+	List<Inventario> listaEntradasPorProducto(Long idProducto);
 	
 }
