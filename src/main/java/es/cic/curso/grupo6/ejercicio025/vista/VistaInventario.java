@@ -17,6 +17,7 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Grid.SelectionMode;
 import com.vaadin.ui.MenuBar.Command;
 import com.vaadin.ui.MenuBar.MenuItem;
+import com.vaadin.ui.Notification;
 
 import es.cic.curso.grupo6.ejercicio025.modelo.Almacen;
 import es.cic.curso.grupo6.ejercicio025.modelo.Inventario;
@@ -37,7 +38,10 @@ public class VistaInventario extends VerticalLayout implements View {
 	private Grid gridAlmacen;
 	private Grid gridTienda;
 	
-	private TextField cuantas;
+	private Button moverTienda;
+	private Button moverAlmacen;
+	
+	private TextField movemos;
 
 	@SuppressWarnings("serial")
 	public VistaInventario(Navigator navegador, Almacen almacen, Almacen tienda,
@@ -69,6 +73,7 @@ public class VistaInventario extends VerticalLayout implements View {
 		addComponent(creaLayoutAlmacen());
 		addComponent(creaButtons());
 		addComponent(creaLayoutTienda());
+		addComponent(detalle);
 		
 
 		// Creación de Grids
@@ -89,6 +94,15 @@ public class VistaInventario extends VerticalLayout implements View {
 	 gridAlmacen.setColumns("id", "producto", "cantidad");
 	 gridAlmacen.setSizeFull();
 	 gridAlmacen.setSelectionMode(SelectionMode.SINGLE);
+	 
+	 gridAlmacen.addSelectionListener(e -> {
+			Producto producto = null;
+			if (!e.getSelected().isEmpty()) {
+				producto = (Producto) e.getSelected().iterator().next();
+
+			}
+			detalle.setProducto(producto);
+		});
 	 resultado.addComponent(label);
 	 resultado.addComponent(gridAlmacen);
 
@@ -102,19 +116,42 @@ public class VistaInventario extends VerticalLayout implements View {
 		resultado.setSpacing(true);
 		
 		
-		Button botonAnnadir = new Button();
-		botonAnnadir.setCaption("Añadir producto a Tienda");
-		botonAnnadir.setIcon(FontAwesome.PLUS_CIRCLE);
-		resultado.addComponent(botonAnnadir);
+		Button moverTienda = new Button();
+		moverTienda.setCaption("Añadir producto a Tienda");
+		moverTienda.setIcon(FontAwesome.PLUS_CIRCLE);
+		resultado.addComponent(moverTienda);
+		moverTienda.setVisible(true);
 		
-		Button botonQuitar = new Button();
-		botonQuitar.setCaption("Quitar producto de Tienda");
-		botonQuitar.setIcon(FontAwesome.MINUS_CIRCLE);
-		resultado.addComponent(botonQuitar);
+		moverTienda.addClickListener(e -> {
+			try {
+				if (Integer.valueOf(movemos.getValue()) > 0) {
+					String cantidad = movemos.getValue();
+					int cantidadNumerica = Integer.parseInt(cantidad);
+					servicioGestorInventario.modificaCantidadProductos(idProducto, idAlmacen,cantidadNumerica )
+					//movemos.setVisible(false);	
+				} else {
+					Notification.show("Te has equivocado, inténtalo otra vez.");
+				}
+				
+			} catch (Exception o) {
+				Notification.show("De verdad? Inténtalo otra vez.");
+			}
+        });
 		
-		cuantas = new TextField();
-		cuantas.setVisible(true);
-		resultado.addComponent(cuantas);
+		Button moverAlmacen = new Button();
+		moverAlmacen.setCaption("Quitar producto de Tienda");
+		moverAlmacen.setIcon(FontAwesome.MINUS_CIRCLE);
+		resultado.addComponent(moverAlmacen);
+		moverAlmacen.setVisible(true);
+
+//		tenemos.addClickListener(e ->{
+//			servicioGestorInventario.
+//		
+//			servicioGestorTienda.eliminaProducto(producto.getId());
+		
+		movemos = new TextField();
+		movemos.setVisible(true);
+		resultado.addComponent(movemos);
 		
 		return resultado;
 	}	 
