@@ -47,6 +47,12 @@ public class MyUI extends UI {
 		servicioGestorInventario = ContextLoader.getCurrentWebApplicationContext().getBean(ServicioGestorInventario.class);
 		servicioGestorTienda = ContextLoader.getCurrentWebApplicationContext().getBean(ServicioGestorTienda.class);
 		servicioGestorVentas = ContextLoader.getCurrentWebApplicationContext().getBean(ServicioGestorVentas.class);
+		almacen = new Almacen();
+		almacen.setCapacidad(1000);
+		tienda = new Almacen();
+		tienda.setCapacidad(100);
+		servicioGestorTienda.agregaAlmacen(almacen);
+		servicioGestorTienda.agregaAlmacen(tienda);
 		cargaBD();
 
 		getPage().setTitle("Badulaque");
@@ -56,7 +62,7 @@ public class MyUI extends UI {
 
 		// Crea y registra las vistas:
 		navegador.addView("", new VistaTienda(navegador, servicioGestorTienda, servicioGestorVentas));
-		navegador.addView(VISTA_INVENTARIO, new VistaInventario(navegador, servicioGestorInventario));
+		navegador.addView(VISTA_INVENTARIO, new VistaInventario(navegador, almacen, tienda, servicioGestorInventario));
 		navegador.addView(VISTA_PRODUCTO, new VistaProductos(navegador, servicioGestorTienda));
 	}
 	

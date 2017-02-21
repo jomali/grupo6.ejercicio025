@@ -14,6 +14,7 @@ import com.vaadin.ui.Grid.SelectionMode;
 import com.vaadin.ui.MenuBar.Command;
 import com.vaadin.ui.MenuBar.MenuItem;
 
+import es.cic.curso.grupo6.ejercicio025.modelo.Almacen;
 import es.cic.curso.grupo6.ejercicio025.modelo.Inventario;
 import es.cic.curso.grupo6.ejercicio025.modelo.Producto;
 import es.cic.curso.grupo6.ejercicio025.servicio.ServicioGestorInventario;
@@ -22,18 +23,23 @@ import es.cic.curso.grupo6.ejercicio025.vista.MyUI;
 
 public class VistaInventario extends VerticalLayout implements View {
 	private static final long serialVersionUID = -3554081767202657813L;
-	
+
 	private ServicioGestorInventario servicioGestorInventario;
 	private ServicioGestorTienda servicioGestorProducto;
+
+	private Almacen almacen;
+	private Almacen tienda;
+
 	private Grid gridAlmacen;
 	private Grid gridTienda;
-	
 
 	@SuppressWarnings("serial")
-	public VistaInventario(Navigator navegador, ServicioGestorInventario  servicioGestorInventario) {
-		
+	public VistaInventario(Navigator navegador, Almacen almacen, Almacen tienda,
+			ServicioGestorInventario servicioGestorInventario) {
+		this.almacen = almacen;
+		this.tienda = tienda;
 		this.servicioGestorInventario = servicioGestorInventario;
-		
+
 		// Navegación entre las vistas de la aplicación:
 		MenuBar menuNavegacion = new MenuBar();
 		menuNavegacion.setWidth(100.0F, Unit.PERCENTAGE);
@@ -46,7 +52,7 @@ public class VistaInventario extends VerticalLayout implements View {
 		});
 		MenuItem menuItemVistaInventario = menuNavegacion.addItem("Inventario", null);
 		menuItemVistaInventario.setEnabled(false);
-		
+
 		menuNavegacion.addItem("Productos", new Command() {
 			@Override
 			public void menuSelected(final MenuItem selectedItem) {
@@ -54,64 +60,64 @@ public class VistaInventario extends VerticalLayout implements View {
 			}
 		});
 		addComponent(menuNavegacion);
-//		addComponent(creaGridsEnLayouts());
-		
+		// addComponent(creaGridsEnLayouts());
+
 		// Creación de Grids
-//		HorizontalLayout contentLayout = new HorizontalLayout();
-//		contentLayout.setMargin(true);
-//		contentLayout.setSpacing(true);
-//		contentLayout.addComponent(gridAlmacen);
-//		addComponent(contentLayout);
-		
+		// HorizontalLayout contentLayout = new HorizontalLayout();
+		// contentLayout.setMargin(true);
+		// contentLayout.setSpacing(true);
+		// contentLayout.addComponent(gridAlmacen);
+		// addComponent(contentLayout);
+
 	}
 
-//	private HorizontalLayout creaGridsEnLayouts() {
-//		HorizontalLayout resultado = new HorizontalLayout();
-//		resultado.setMargin(true);
-//		resultado.setSpacing(true);
-//		resultado.setSizeFull();
-//		
-//		creaLayoutALmacen();
-//		creaLayoutTienda();
-//		
-//		resultado.addComponent(gridAlmacen);
-//		return resultado;
-//		
-//	}
-//	
-//	private VerticalLayout creaLayoutALmacen() {
-//		VerticalLayout resultado = new VerticalLayout();
-//		resultado.setMargin(true);
-//		resultado.setSpacing(true);
-//		resultado.setSizeFull();
-//
-//		gridTienda = new Grid();
-//		gridTienda.setColumns("id", "nombre", "cantidad");
-//		gridTienda.setSizeFull();
-//		gridTienda.setSelectionMode(SelectionMode.SINGLE);
-//		resultado.addComponent(gridTienda);
-//
-//		return resultado;
-//	}
-//	
-//	private VerticalLayout creaLayoutTienda() {
-//		VerticalLayout resultado = new VerticalLayout();
-//		resultado.setMargin(true);
-//		resultado.setSpacing(true);
-//		resultado.setSizeFull();
-//
-//		gridAlmacen = new Grid();
-//		gridAlmacen.setColumns("id", "nombre", "cantidad");
-//		gridAlmacen.setSizeFull();
-//		gridAlmacen.setSelectionMode(SelectionMode.SINGLE);
-//		resultado.addComponent(gridAlmacen);
-//
-//		return resultado;
-//	}
+	// private HorizontalLayout creaGridsEnLayouts() {
+	// HorizontalLayout resultado = new HorizontalLayout();
+	// resultado.setMargin(true);
+	// resultado.setSpacing(true);
+	// resultado.setSizeFull();
+	//
+	// creaLayoutALmacen();
+	// creaLayoutTienda();
+	//
+	// resultado.addComponent(gridAlmacen);
+	// return resultado;
+	//
+	// }
+	//
+	// private VerticalLayout creaLayoutALmacen() {
+	// VerticalLayout resultado = new VerticalLayout();
+	// resultado.setMargin(true);
+	// resultado.setSpacing(true);
+	// resultado.setSizeFull();
+	//
+	// gridTienda = new Grid();
+	// gridTienda.setColumns("id", "nombre", "cantidad");
+	// gridTienda.setSizeFull();
+	// gridTienda.setSelectionMode(SelectionMode.SINGLE);
+	// resultado.addComponent(gridTienda);
+	//
+	// return resultado;
+	// }
+	//
+	// private VerticalLayout creaLayoutTienda() {
+	// VerticalLayout resultado = new VerticalLayout();
+	// resultado.setMargin(true);
+	// resultado.setSpacing(true);
+	// resultado.setSizeFull();
+	//
+	// gridAlmacen = new Grid();
+	// gridAlmacen.setColumns("id", "nombre", "cantidad");
+	// gridAlmacen.setSizeFull();
+	// gridAlmacen.setSelectionMode(SelectionMode.SINGLE);
+	// resultado.addComponent(gridAlmacen);
+	//
+	// return resultado;
+	// }
 	@Override
 	public void enter(ViewChangeEvent event) {
 		cargaGrid();
-		
+
 	}
 
 	public void cargaGrid() {
