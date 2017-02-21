@@ -8,6 +8,7 @@ import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.MenuBar;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.MenuBar.Command;
 import com.vaadin.ui.MenuBar.MenuItem;
 import com.vaadin.ui.VerticalLayout;
@@ -120,6 +121,11 @@ public class VistaTienda extends VerticalLayout implements View {
 	}
 	
 	public void vendeProducto(Producto producto, int cantidad) {
+		try {
+			servicioGestorVentas.vende(producto.getId(), tienda.getId(), cantidad);
+		} catch (IllegalArgumentException iae) {
+			Notification.show("No hay existencias suficientes");
+		}
 		
 	}
 

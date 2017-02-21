@@ -91,6 +91,10 @@ public class Inventario implements Identificable<Long> {
 	public void setCantidad(int cantidad) {
 		this.cantidad = cantidad;
 	}
+	
+	public void modifyCantidad(int delta) {
+		this.cantidad += delta;
+	}
 
 	@Override
 	public String toString() {
