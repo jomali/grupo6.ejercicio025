@@ -67,9 +67,11 @@ public class MyUI extends UI {
 	}
 	
 	private void cargaBD() {
-		servicioGestorTienda.agregaProducto("El guardián entre el centeno", 12.5F);
-		servicioGestorTienda.agregaProducto("Jerusalem", 25.0F);
-		servicioGestorTienda.agregaProducto("Nords", 20.0F);
+		servicioGestorTienda.agregaProducto("Galletas Principe", 2.5F);
+		servicioGestorTienda.agregaProducto("Café Fortaleza", 2.10F);
+		servicioGestorTienda.agregaProducto("Espárragos Cojonudos", 8.90F);
+		servicioGestorTienda.agregaProducto("Dulce de Leche Havanna", 4.90F);
+		servicioGestorTienda.agregaProducto("Donuts Chocolate", 1.99F);
 	}
 
 	@WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)

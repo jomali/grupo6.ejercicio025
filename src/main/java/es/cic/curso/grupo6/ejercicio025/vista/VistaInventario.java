@@ -117,7 +117,6 @@ public class VistaInventario extends VerticalLayout implements View {
 	@Override
 	public void enter(ViewChangeEvent event) {
 		cargaGrid();
-
 	}
 
 	public void cargaGrid() {
