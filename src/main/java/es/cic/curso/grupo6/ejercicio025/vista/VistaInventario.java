@@ -6,8 +6,11 @@ import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
+import com.vaadin.server.FontAwesome;
+import com.vaadin.ui.Button;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Grid.SelectionMode;
@@ -61,6 +64,7 @@ public class VistaInventario extends VerticalLayout implements View {
 		});
 		addComponent(menuNavegacion);
 		addComponent(creaLayoutAlmacen());
+		addComponent(creaButtons());
 		addComponent(creaLayoutTienda());
 		
 
@@ -77,26 +81,49 @@ public class VistaInventario extends VerticalLayout implements View {
 	 resultado.setMargin(true);
 	 resultado.setSpacing(true);
 	 resultado.setSizeFull();
-	
+	 Label label = new Label("Inventario Almacén");
 	 gridAlmacen = new Grid();
-	 gridAlmacen.setColumns("id", "nombre", "cantidad");
+	 gridAlmacen.setColumns("id", "id_producto", "cantidad");
 	 gridAlmacen.setSizeFull();
 	 gridAlmacen.setSelectionMode(SelectionMode.SINGLE);
+	 resultado.addComponent(label);
 	 resultado.addComponent(gridAlmacen);
+
 	
 	 return resultado;
 	 }
+	 
+	private HorizontalLayout creaButtons() {
+		HorizontalLayout resultado = new HorizontalLayout();
+		resultado.setMargin(true);
+		resultado.setSpacing(true);
+		
+		
+		Button botonAnnadir = new Button();
+		botonAnnadir.setCaption("Añadir producto a Tienda");
+		botonAnnadir.setIcon(FontAwesome.PLUS_CIRCLE);
+		resultado.addComponent(botonAnnadir);
+		
+		Button botonQuitar = new Button();
+		botonQuitar.setCaption("Quitar producto de Tienda");
+		botonQuitar.setIcon(FontAwesome.MINUS_CIRCLE);
+		resultado.addComponent(botonQuitar);
+		
+		
+		return resultado;
+	}	 
 	
 	 private VerticalLayout creaLayoutTienda() {
 	 VerticalLayout resultado = new VerticalLayout();
 	 resultado.setMargin(true);
 	 resultado.setSpacing(true);
 	 resultado.setSizeFull();
-	
+	 Label label = new Label("Inventario Tienda");
 	 gridTienda = new Grid();
-	 gridTienda.setColumns("id", "nombre", "cantidad");
+	 gridTienda.setColumns("id", "id_tienda", "cantidad");
 	 gridTienda.setSizeFull();
 	 gridTienda.setSelectionMode(SelectionMode.SINGLE);
+	 resultado.addComponent(label);
 	 resultado.addComponent(gridTienda);
 	
 	 return resultado;

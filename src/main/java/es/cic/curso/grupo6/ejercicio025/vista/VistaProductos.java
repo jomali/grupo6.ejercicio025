@@ -72,17 +72,11 @@ public class VistaProductos extends VerticalLayout implements View {
 		gridProductos.setSelectionMode(SelectionMode.SINGLE);
 		resultado.addComponent(gridProductos);
 
-		Button botonAnnadir = new Button();
-		botonAnnadir.setCaption("Añadir producto");
-		botonAnnadir.setIcon(FontAwesome.PLUS_CIRCLE);
-		resultado.addComponent(botonAnnadir);
-
 		return resultado;
 	}
 	
 	private HorizontalLayout creaButtons() {
 		HorizontalLayout resultado = new HorizontalLayout();
-		resultado.setMargin(true);
 		resultado.setSpacing(true);
 		
 		
@@ -95,11 +89,13 @@ public class VistaProductos extends VerticalLayout implements View {
 		botonQuitar.setCaption("Quitar producto");
 		botonQuitar.setIcon(FontAwesome.MINUS_CIRCLE);
 		resultado.addComponent(botonQuitar);
+		botonQuitar.setVisible(false);
 		
 		Button botonImprimir = new Button();
 		botonImprimir.setCaption("Imprimir Productos");
 		botonImprimir.setIcon(FontAwesome.PRINT);
 		resultado.addComponent(botonImprimir);
+		botonImprimir.setVisible(false);
 		
 		
 		return resultado;
