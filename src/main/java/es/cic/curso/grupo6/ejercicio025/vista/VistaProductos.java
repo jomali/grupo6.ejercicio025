@@ -77,15 +77,15 @@ public class VistaProductos extends VerticalLayout implements View {
 		gridProductos.setSelectionMode(SelectionMode.SINGLE);
 		gridProductos.setVisible(true);
 		
-//		gridProductos.addSelectionListener(e -> {
-//			Producto p = null;
-//			if (!e.getSelected().isEmpty()) {
-//				p = (Producto) e.getSelected().iterator().next();
-//				botonQuitar.setVisible(true);
-//			} else {
-//				botonQuitar.setVisible(false);
-//			}
-//		});
+		gridProductos.addSelectionListener(e -> {
+			Producto p = null;
+			if (!e.getSelected().isEmpty()) {
+				p = (Producto) e.getSelected().iterator().next();
+				botonQuitar.setVisible(true);
+			} else {
+				botonQuitar.setVisible(false);
+			}
+		});
 			
 		resultado.addComponent(gridProductos);
 
