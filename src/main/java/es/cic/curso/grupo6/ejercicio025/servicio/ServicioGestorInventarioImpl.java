@@ -50,9 +50,18 @@ public class ServicioGestorInventarioImpl implements ServicioGestorInventario {
 	public Inventario obtenEntradaInventario(Long idProducto, Long idAlmacen) {
 		// Comprobamos que los IDs se correspondan con entidades registradas en
 		// BB.DD.
-		obtenProducto(idProducto);
-		obtenAlmacen(idAlmacen);
+		Producto producto = obtenProducto(idProducto);
+		Almacen almacen = obtenAlmacen(idAlmacen);
 		// Retorna la entrada de inventario para los IDs dados
+		Inventario resultado;
+		resultado = repositorioInventario.read(idProducto, idAlmacen);
+		if (resultado == null) {
+			resultado = new Inventario();
+			resultado.setProducto(producto);
+			resultado.setAlmacen(almacen);
+			resultado.setCantidad(0);
+			repositorioInventario.create(resultado);
+		}
 		return repositorioInventario.read(idProducto, idAlmacen);
 	}
 

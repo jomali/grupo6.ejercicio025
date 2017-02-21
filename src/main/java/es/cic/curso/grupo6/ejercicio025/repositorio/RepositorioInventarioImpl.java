@@ -24,24 +24,41 @@ public class RepositorioInventarioImpl extends RepositorioAbstractoImpl<Long, In
 
 	@Override
 	public Inventario read(Long idProducto, Long idAlmacen) {
-		return (Inventario) entityManager
-				.createNativeQuery("SELECT * FROM INVENTARIO WHERE id_producto = ? AND id_almacen = ?", obtenClaseT())
-				.setParameter(1, idProducto).setParameter(2, idAlmacen).getSingleResult();
+		Inventario resultado = null;
+		try {
+			resultado = (Inventario) entityManager
+					.createNativeQuery("SELECT * FROM INVENTARIO WHERE id_producto = ? AND id_almacen = ?", obtenClaseT())
+					.setParameter(1, idProducto).setParameter(2, idAlmacen).getSingleResult();
+		} catch (Exception e) {
+			
+		}
+		return resultado;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Inventario> listByAlmacen(Long idAlmacen) {
-		return entityManager.createNativeQuery("SELECT * FROM INVENTARIO WHERE id_almacen = ?", obtenClaseT())
-				.setParameter(1, idAlmacen).getResultList();
+		List<Inventario> resultado = null;
+		try {
+			resultado = entityManager.createNativeQuery("SELECT * FROM INVENTARIO WHERE id_almacen = ?", obtenClaseT())
+					.setParameter(1, idAlmacen).getResultList();
+		} catch (Exception e) {
+
+		}
+		return resultado;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Inventario> listByProducto(Long idProducto) {
-		return entityManager.createNativeQuery("SELECT * FROM INVENTARIO WHERE id_producto = ?", obtenClaseT())
-				.setParameter(1, idProducto).getResultList();
-		
+		List<Inventario> resultado = null;
+		try {
+			resultado = entityManager.createNativeQuery("SELECT * FROM INVENTARIO WHERE id_producto = ?", obtenClaseT())
+					.setParameter(1, idProducto).getResultList();
+		} catch (Exception e) {
+
+		}
+		return resultado;
 	}
 
 }

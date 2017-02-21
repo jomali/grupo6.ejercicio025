@@ -68,12 +68,8 @@ public class ServicioGestorInventarioTest {
 		}
 
 		// 2) Obtener una entrada no registrada en BB.DD.
-		try {
-			inventario = sut.obtenEntradaInventario(producto.getId(), almacen.getId());
-			fail("Entrada no registrada en BB.DD.");
-		} catch (NoResultException e) {
-			
-		}
+		inventario = sut.obtenEntradaInventario(producto.getId(), almacen.getId());
+		assertNull(inventario);
 		
 		// 3) Obtener una entrada registrada en BB.DD.
 		Inventario i = new Inventario();
@@ -94,7 +90,23 @@ public class ServicioGestorInventarioTest {
 
 	@Test
 	public void obtenEstableceCantidadProductos() {
-		assertTrue(true);
+		Inventario i = new Inventario();
+		i.setProducto(producto);
+		i.setAlmacen(almacen);
+		i.setCantidad(1);
+		em.persist(i);
+		em.flush();
+		
+		Inventario inventario;
+
+		inventario = sut.obtenEntradaInventario(producto.getId(), almacen.getId());
+		assertNotNull(inventario);
+		assertEquals(1, inventario.getCantidad());
+		
+		sut.estableceCantidadProductos(producto.getId(), almacen.getId(), 10);
+		inventario = sut.obtenEntradaInventario(producto.getId(), almacen.getId());
+		assertNotNull(inventario);
+		assertEquals(10, inventario.getCantidad());
 	}
 
 	@Test
