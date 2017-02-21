@@ -71,8 +71,9 @@ public class VistaTienda extends VerticalLayout implements View {
 		resultado.setSizeFull();
 
 		gridProductos = new Grid();
+		gridProductos.setCaption("Lista de productos:");
 		gridProductos.setColumns("id", "nombre", "precio");
-		gridProductos.setSizeFull();
+		gridProductos.setWidth(100.0F, Unit.PERCENTAGE);
 		gridProductos.setSelectionMode(SelectionMode.SINGLE);
 		gridProductos.setVisible(true);
 
@@ -80,6 +81,7 @@ public class VistaTienda extends VerticalLayout implements View {
 			Producto p = null;
 			if (!e.getSelected().isEmpty()) {
 				p = (Producto) e.getSelected().iterator().next();
+				cargaGridInventario(p);
 				gridInventario.setVisible(true);
 			} else {
 				gridInventario.setVisible(false);
@@ -89,7 +91,8 @@ public class VistaTienda extends VerticalLayout implements View {
 		});
 		
 		gridInventario = new Grid();
-		gridInventario.setColumns("id", "id_producto", "id_almacen", "cantidad");
+		gridInventario.setCaption("Disponibilidad:");
+		gridInventario.setColumns("id", "producto", "almacen", "cantidad");
 		gridInventario.setWidth(100.0F, Unit.PERCENTAGE);
 		gridInventario.setSelectionMode(SelectionMode.NONE);
 		gridInventario.setVisible(false);

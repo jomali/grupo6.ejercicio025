@@ -1,5 +1,6 @@
 package es.cic.curso.grupo6.ejercicio025.repositorio;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
@@ -38,7 +39,7 @@ public class RepositorioInventarioImpl extends RepositorioAbstractoImpl<Long, In
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Inventario> listByAlmacen(Long idAlmacen) {
-		List<Inventario> resultado = null;
+		List<Inventario> resultado = new ArrayList<>();
 		try {
 			resultado = entityManager.createNativeQuery("SELECT * FROM INVENTARIO WHERE id_almacen = ?", obtenClaseT())
 					.setParameter(1, idAlmacen).getResultList();
@@ -51,7 +52,7 @@ public class RepositorioInventarioImpl extends RepositorioAbstractoImpl<Long, In
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Inventario> listByProducto(Long idProducto) {
-		List<Inventario> resultado = null;
+		List<Inventario> resultado = new ArrayList<>();
 		try {
 			resultado = entityManager.createNativeQuery("SELECT * FROM INVENTARIO WHERE id_producto = ?", obtenClaseT())
 					.setParameter(1, idProducto).getResultList();
