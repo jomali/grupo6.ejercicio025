@@ -92,16 +92,9 @@ public class VistaInventario extends VerticalLayout implements View {
 		gridAlmacen.setSelectionMode(SelectionMode.SINGLE);
 
 		gridAlmacen.addSelectionListener(e -> {
-			Inventario inventario = null;
 			if (!e.getSelected().isEmpty()) {
-				inventario = (Inventario) e.getSelected().iterator().next();
+				entradaSeleccionada = (Inventario) e.getSelected().iterator().next();
 				moverTienda.setEnabled(true);
-
-				int cantidad = 1; // TODO
-
-				Producto producto = inventario.getProducto();
-				servicioGestorInventario.modificaCantidadProductos(producto.getId(), almacen.getId(), -cantidad);
-				servicioGestorInventario.modificaCantidadProductos(producto.getId(), tienda.getId(), +cantidad);
 			} else {
 				moverTienda.setEnabled(false);
 			}
@@ -128,10 +121,14 @@ public class VistaInventario extends VerticalLayout implements View {
 					String cantidad = movemos.getValue();
 					int cantidadNumerica = Integer.parseInt(cantidad);
 
-					// servicioGestorInventario.modificaCantidadProductos(idProducto,cantidadNumerica
-					// );
-					// servicioGestorInventario.modificaCantidadProductos(idAlmacen,cantidadNumerica
-					// );
+					Producto producto = entradaSeleccionada.getProducto();
+					servicioGestorInventario.modificaCantidadProductos(producto.getId(), almacen.getId(),
+							-cantidadNumerica);
+					servicioGestorInventario.modificaCantidadProductos(producto.getId(), tienda.getId(),
+							+cantidadNumerica);
+					cargaGrid();
+					movemos.setValue("");
+					Notification.show("Se han pasado '" + cantidadNumerica + "' del almacén a la tienda");
 				} else {
 					Notification.show("Te has equivocado, inténtalo otra vez.");
 				}
