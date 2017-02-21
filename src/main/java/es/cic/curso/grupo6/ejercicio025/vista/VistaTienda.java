@@ -25,6 +25,8 @@ public class VistaTienda extends VerticalLayout implements View {
 
 	/** <em>Grid</em> con los productos registrados en el sistema. */
 	private Grid gridProductos;
+	
+	
 
 	@SuppressWarnings("serial")
 	public VistaTienda(Navigator navegador, ServicioGestorTienda servicioGestorTienda,

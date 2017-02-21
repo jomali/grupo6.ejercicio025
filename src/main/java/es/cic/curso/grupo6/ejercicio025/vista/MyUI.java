@@ -12,6 +12,7 @@ import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.UI;
 
 import es.cic.curso.grupo6.ejercicio025.modelo.Almacen;
+import es.cic.curso.grupo6.ejercicio025.modelo.Producto;
 import es.cic.curso.grupo6.ejercicio025.servicio.ServicioGestorInventario;
 import es.cic.curso.grupo6.ejercicio025.servicio.ServicioGestorTienda;
 import es.cic.curso.grupo6.ejercicio025.servicio.ServicioGestorVentas;
@@ -67,11 +68,41 @@ public class MyUI extends UI {
 	}
 	
 	private void cargaBD() {
-		servicioGestorTienda.agregaProducto("Galletas Principe", 2.5F);
-		servicioGestorTienda.agregaProducto("Café Fortaleza", 2.10F);
-		servicioGestorTienda.agregaProducto("Espárragos Cojonudos", 8.90F);
-		servicioGestorTienda.agregaProducto("Dulce de Leche Havanna", 4.90F);
-		servicioGestorTienda.agregaProducto("Donuts Chocolate", 1.99F);
+		Producto p1 = new Producto();
+		p1.setNombre("Galletas Príncipe");
+		p1.setPrecio(2.5F);
+		servicioGestorTienda.agregaProducto(p1);
+		
+		Producto p2 = new Producto();
+		p2.setNombre("Café Fortaleza");
+		p2.setPrecio(2.10F);
+		servicioGestorTienda.agregaProducto(p2);
+		
+		Producto p3 = new Producto();
+		p3.setNombre("Espárragos Cojonudos");
+		p3.setPrecio(8.90F);
+		servicioGestorTienda.agregaProducto(p3);
+		
+		Producto p4 = new Producto();
+		p4.setNombre("Dulce de Leche Havanna");
+		p4.setPrecio(4.90F);
+		servicioGestorTienda.agregaProducto(p4);
+		
+		Producto p5 = new Producto();
+		p5.setNombre("Donuts Chocolate");
+		p5.setPrecio(1.99F);
+		servicioGestorTienda.agregaProducto(p5);
+		
+		servicioGestorInventario.estableceCantidadProductos(p1.getId(), almacen.getId(), 100);
+		servicioGestorInventario.estableceCantidadProductos(p1.getId(), tienda.getId(), 8);
+		servicioGestorInventario.estableceCantidadProductos(p2.getId(), almacen.getId(), 80);
+		servicioGestorInventario.estableceCantidadProductos(p2.getId(), tienda.getId(), 18);
+		servicioGestorInventario.estableceCantidadProductos(p3.getId(), almacen.getId(), 50);
+		servicioGestorInventario.estableceCantidadProductos(p3.getId(), tienda.getId(), 20);
+		servicioGestorInventario.estableceCantidadProductos(p4.getId(), almacen.getId(), 0);
+		servicioGestorInventario.estableceCantidadProductos(p4.getId(), tienda.getId(), 11);
+		servicioGestorInventario.estableceCantidadProductos(p5.getId(), almacen.getId(), 60);
+		servicioGestorInventario.estableceCantidadProductos(p5.getId(), tienda.getId(), 30);
 	}
 
 	@WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)
