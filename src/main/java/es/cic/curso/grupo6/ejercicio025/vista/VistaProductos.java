@@ -93,12 +93,16 @@ public class VistaProductos extends VerticalLayout implements View {
 		Button botonImprimir = new Button();
 		botonImprimir.setCaption("Imprimir Productos");
 		botonImprimir.setIcon(FontAwesome.PRINT);
+		botonImprimir.setEnabled(false);
 		horizontalLayout.addComponent(botonImprimir);
 		botonImprimir.setVisible(true);
 		
 		Button botonAnnadir = new Button();
 		botonAnnadir.setCaption("Añadir producto");
 		botonAnnadir.setIcon(FontAwesome.PLUS_CIRCLE);
+		botonAnnadir.addClickListener(e -> {
+			Notification.show("Funcionalidad no implementada todavía");
+		});
 		horizontalLayout.addComponent(botonAnnadir);
 		
 		botonQuitar.setCaption("Quitar producto");
