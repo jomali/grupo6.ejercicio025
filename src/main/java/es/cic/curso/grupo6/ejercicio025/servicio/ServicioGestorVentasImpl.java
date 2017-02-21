@@ -54,7 +54,7 @@ public class ServicioGestorVentasImpl implements ServicioGestorVentas {
 		Almacen almacen = obtenAlmacen(idAlmacen);
 		
 		Inventario entradaInventario = repositorioInventario.read(producto.getId(), almacen.getId());
-		if (entradaInventario == null || entradaInventario.getCantidad() < cantidad) {
+		if (entradaInventario.getCantidad() < cantidad) {
 			throw new IllegalArgumentException();
 		}
 		entradaInventario.modifyCantidad(-cantidad);

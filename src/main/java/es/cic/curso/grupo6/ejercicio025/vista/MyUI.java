@@ -50,8 +50,10 @@ public class MyUI extends UI {
 		servicioGestorTienda = ContextLoader.getCurrentWebApplicationContext().getBean(ServicioGestorTienda.class);
 		servicioGestorVentas = ContextLoader.getCurrentWebApplicationContext().getBean(ServicioGestorVentas.class);
 		almacen = new Almacen();
+		almacen.setNombre("Almacén principal");
 		almacen.setCapacidad(1000);
 		tienda = new Almacen();
+		tienda.setNombre("Tienda");
 		tienda.setCapacidad(100);
 		servicioGestorTienda.agregaAlmacen(almacen);
 		servicioGestorTienda.agregaAlmacen(tienda);

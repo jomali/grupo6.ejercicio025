@@ -25,6 +25,8 @@ public class FormularioVenta extends FormLayout {
 
 	public FormularioVenta(VistaTienda padre) {
 		this.padre = padre;
+		this.setMargin(false);
+		this.setSpacing(false);
 
 		HorizontalLayout horizontalLayout = new HorizontalLayout();
 		horizontalLayout.setSpacing(true);
@@ -36,8 +38,9 @@ public class FormularioVenta extends FormLayout {
 		botonVender.setIcon(FontAwesome.EURO);
 		
 		botonVender.addClickListener(e -> {
-			padre.vendeProducto(producto, (int)textFieldCantidad.getConvertedValue());
+			padre.vendeProducto(producto, Integer.parseInt(textFieldCantidad.getValue()));
 			padre.cargaGridProductos();
+			textFieldCantidad.setValue("");
 		});
 		
 		horizontalLayout.addComponents(label, textFieldCantidad, botonVender);
