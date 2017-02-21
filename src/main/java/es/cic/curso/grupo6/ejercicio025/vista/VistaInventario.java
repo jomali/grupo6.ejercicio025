@@ -60,7 +60,9 @@ public class VistaInventario extends VerticalLayout implements View {
 			}
 		});
 		addComponent(menuNavegacion);
-		// addComponent(creaGridsEnLayouts());
+		addComponent(creaLayoutAlmacen());
+		addComponent(creaLayoutTienda());
+		
 
 		// Creación de Grids
 		// HorizontalLayout contentLayout = new HorizontalLayout();
@@ -70,57 +72,50 @@ public class VistaInventario extends VerticalLayout implements View {
 		// addComponent(contentLayout);
 
 	}
+	 private VerticalLayout creaLayoutAlmacen() {
+	 VerticalLayout resultado = new VerticalLayout();
+	 resultado.setMargin(true);
+	 resultado.setSpacing(true);
+	 resultado.setSizeFull();
+	
+	 gridAlmacen = new Grid();
+	 gridAlmacen.setColumns("id", "nombre", "cantidad");
+	 gridAlmacen.setSizeFull();
+	 gridAlmacen.setSelectionMode(SelectionMode.SINGLE);
+	 resultado.addComponent(gridAlmacen);
+	
+	 return resultado;
+	 }
+	
+	 private VerticalLayout creaLayoutTienda() {
+	 VerticalLayout resultado = new VerticalLayout();
+	 resultado.setMargin(true);
+	 resultado.setSpacing(true);
+	 resultado.setSizeFull();
+	
+	 gridTienda = new Grid();
+	 gridTienda.setColumns("id", "nombre", "cantidad");
+	 gridTienda.setSizeFull();
+	 gridTienda.setSelectionMode(SelectionMode.SINGLE);
+	 resultado.addComponent(gridTienda);
+	
+	 return resultado;
+	 }
+	
 
-	// private HorizontalLayout creaGridsEnLayouts() {
-	// HorizontalLayout resultado = new HorizontalLayout();
-	// resultado.setMargin(true);
-	// resultado.setSpacing(true);
-	// resultado.setSizeFull();
-	//
-	// creaLayoutALmacen();
-	// creaLayoutTienda();
-	//
-	// resultado.addComponent(gridAlmacen);
-	// return resultado;
-	//
-	// }
-	//
-	// private VerticalLayout creaLayoutALmacen() {
-	// VerticalLayout resultado = new VerticalLayout();
-	// resultado.setMargin(true);
-	// resultado.setSpacing(true);
-	// resultado.setSizeFull();
-	//
-	// gridTienda = new Grid();
-	// gridTienda.setColumns("id", "nombre", "cantidad");
-	// gridTienda.setSizeFull();
-	// gridTienda.setSelectionMode(SelectionMode.SINGLE);
-	// resultado.addComponent(gridTienda);
-	//
-	// return resultado;
-	// }
-	//
-	// private VerticalLayout creaLayoutTienda() {
-	// VerticalLayout resultado = new VerticalLayout();
-	// resultado.setMargin(true);
-	// resultado.setSpacing(true);
-	// resultado.setSizeFull();
-	//
-	// gridAlmacen = new Grid();
-	// gridAlmacen.setColumns("id", "nombre", "cantidad");
-	// gridAlmacen.setSizeFull();
-	// gridAlmacen.setSelectionMode(SelectionMode.SINGLE);
-	// resultado.addComponent(gridAlmacen);
-	//
-	// return resultado;
-	// }
 	@Override
 	public void enter(ViewChangeEvent event) {
 		cargaGrid();
 	}
 
 	public void cargaGrid() {
-		List<Producto> productos = servicioGestorProducto.listaProductos();
-		gridAlmacen.setContainerDataSource(new BeanItemContainer<>(Producto.class, productos));
+		
+		List<Inventario> productoAlmacen = servicioGestorInventario.listaEntradasPorAlmacen(almacen.getId());
+		gridAlmacen.setContainerDataSource(new BeanItemContainer<>(Inventario.class, productoAlmacen));
+		
+		List<Inventario> productoTienda = servicioGestorInventario.listaEntradasPorAlmacen(tienda.getId());
+		gridTienda.setContainerDataSource(new BeanItemContainer<>(Inventario.class, productoTienda));
+		
+		
 	}
 }
