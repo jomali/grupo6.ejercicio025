@@ -12,6 +12,7 @@ import com.vaadin.ui.Grid;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.MenuBar;
+import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Grid.SelectionMode;
 import com.vaadin.ui.MenuBar.Command;
@@ -35,6 +36,8 @@ public class VistaInventario extends VerticalLayout implements View {
 
 	private Grid gridAlmacen;
 	private Grid gridTienda;
+	
+	private TextField cuantas;
 
 	@SuppressWarnings("serial")
 	public VistaInventario(Navigator navegador, Almacen almacen, Almacen tienda,
@@ -83,7 +86,7 @@ public class VistaInventario extends VerticalLayout implements View {
 	 resultado.setSizeFull();
 	 Label label = new Label("Inventario Almacén");
 	 gridAlmacen = new Grid();
-	 gridAlmacen.setColumns("id", "id_producto", "cantidad");
+	 gridAlmacen.setColumns("id", "producto", "cantidad");
 	 gridAlmacen.setSizeFull();
 	 gridAlmacen.setSelectionMode(SelectionMode.SINGLE);
 	 resultado.addComponent(label);
@@ -109,6 +112,9 @@ public class VistaInventario extends VerticalLayout implements View {
 		botonQuitar.setIcon(FontAwesome.MINUS_CIRCLE);
 		resultado.addComponent(botonQuitar);
 		
+		cuantas = new TextField();
+		cuantas.setVisible(true);
+		resultado.addComponent(cuantas);
 		
 		return resultado;
 	}	 
@@ -120,7 +126,7 @@ public class VistaInventario extends VerticalLayout implements View {
 	 resultado.setSizeFull();
 	 Label label = new Label("Inventario Tienda");
 	 gridTienda = new Grid();
-	 gridTienda.setColumns("id", "id_tienda", "cantidad");
+	 gridTienda.setColumns("id", "almacen", "cantidad");
 	 gridTienda.setSizeFull();
 	 gridTienda.setSelectionMode(SelectionMode.SINGLE);
 	 resultado.addComponent(label);

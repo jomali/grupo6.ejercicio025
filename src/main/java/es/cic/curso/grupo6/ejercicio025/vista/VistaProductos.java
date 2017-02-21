@@ -77,8 +77,8 @@ public class VistaProductos extends VerticalLayout implements View {
 	
 	private HorizontalLayout creaButtons() {
 		HorizontalLayout resultado = new HorizontalLayout();
+		resultado.setMargin(true);
 		resultado.setSpacing(true);
-		
 		
 		Button botonAnnadir = new Button();
 		botonAnnadir.setCaption("Añadir producto");
@@ -89,13 +89,13 @@ public class VistaProductos extends VerticalLayout implements View {
 		botonQuitar.setCaption("Quitar producto");
 		botonQuitar.setIcon(FontAwesome.MINUS_CIRCLE);
 		resultado.addComponent(botonQuitar);
-		botonQuitar.setVisible(false);
+		botonQuitar.setVisible(true);
 		
 		Button botonImprimir = new Button();
 		botonImprimir.setCaption("Imprimir Productos");
 		botonImprimir.setIcon(FontAwesome.PRINT);
 		resultado.addComponent(botonImprimir);
-		botonImprimir.setVisible(false);
+		botonImprimir.setVisible(true);
 		
 		
 		return resultado;
