@@ -33,7 +33,7 @@ public class VistaProductos extends VerticalLayout implements View {
 
 	private FormularioProducto detalle;
 	
-	private Button botonQuitar;
+	private Button botonQuitar = new Button();
 	
 	private Producto producto;
 	private VerticalLayout padre;
@@ -70,7 +70,7 @@ public class VistaProductos extends VerticalLayout implements View {
 
 	@Override
 	public void enter(ViewChangeEvent event) {
-		Notification.show("Lista Productos");
+		cargaGrid(null);
 	}
 
 	private VerticalLayout creaLayoutProductos() {
@@ -118,9 +118,9 @@ public class VistaProductos extends VerticalLayout implements View {
 		botonAnnadir.setIcon(FontAwesome.PLUS_CIRCLE);
 		resultado.addComponent(botonAnnadir);
 		
-		Button botonQuitar = new Button();
 		botonQuitar.setCaption("Quitar producto");
 		botonQuitar.setIcon(FontAwesome.MINUS_CIRCLE);
+		botonQuitar.setVisible(false);
 		botonQuitar.addClickListener(p ->{
 			servicioGestorTienda.eliminaProducto(producto.getId());
 			
