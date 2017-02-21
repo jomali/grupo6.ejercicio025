@@ -111,7 +111,7 @@ public class VistaProductos extends VerticalLayout implements View {
 		Button botonQuitar = new Button();
 		botonQuitar.setCaption("Quitar producto");
 		botonQuitar.setIcon(FontAwesome.MINUS_CIRCLE);
-		botonQuitar.addClickListener(e ->{
+		botonQuitar.addClickListener(p ->{
 			servicioGestorTienda.eliminaProducto(producto.getId());
 			
 		});
