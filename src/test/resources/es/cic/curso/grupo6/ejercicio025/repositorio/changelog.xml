@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+					http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+	<changeSet author="usuario (generated)" id="1400847488681-1">
+
+		<createTable catalogName="grupo6" tableName="ALMACEN">
+			<column autoIncrement="true" name="id" type="INT(10)">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="nombre" type="VARCHAR(100)" />
+			<column name="capacidad" type="INT(4)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
+		<createTable catalogName="grupo6" tableName="INVENTARIO">
+			<column autoIncrement="true" name="id" type="INT(10)">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="id_producto" type="INT(10)">
+				<constraints nullable="false" />
+			</column>
+			<column name="id_almacen" type="INT(10)">
+				<constraints nullable="false" />
+			</column>
+			<column name="cantidad" type="INT(4)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
+		<createTable catalogName="grupo6" tableName="PRODUCTO">
+			<column autoIncrement="true" name="id" type="INT(10)">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="nombre" type="VARCHAR(100)" />
+			<column name="precio" type="DECIMAL(8,2)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
+		<createTable catalogName="grupo6" tableName="VENTA">
+			<column autoIncrement="true" name="id" type="INT(10)">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="id_producto" type="INT(10)">
+				<constraints nullable="false" />
+			</column>
+			<column name="unidades" type="INT(4)" />
+			<column name="importe" type="DECIMAL(8,2)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
+		<addForeignKeyConstraint constraintName="fk_inventario_id_producto"
+			referencedTableName="PRODUCTO" referencedColumnNames="id"
+			baseTableName="INVENTARIO" baseColumnNames="id_producto" />
+
+		<addForeignKeyConstraint constraintName="fk_inventario_id_almacen"
+			referencedTableName="ALMACEN" referencedColumnNames="id"
+			baseTableName="INVENTARIO" baseColumnNames="id_almacen" />
+
+		<addForeignKeyConstraint constraintName="fk_venta_id_producto"
+			referencedTableName="PRODUCTO" referencedColumnNames="id"
+			baseTableName="VENTA" baseColumnNames="id_producto" />
+
+	</changeSet>
+</databaseChangeLog>
