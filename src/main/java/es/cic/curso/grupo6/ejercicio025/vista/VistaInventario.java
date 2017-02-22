@@ -57,7 +57,7 @@ public class VistaInventario extends VerticalLayout implements View {
 		menuNavegacion.addItem("Tienda", new Command() {
 			@Override
 			public void menuSelected(final MenuItem selectedItem) {
-				navegador.navigateTo("");
+				navegador.navigateTo("tienda");
 			}
 		});
 		MenuItem menuItemVistaInventario = menuNavegacion.addItem("Inventario", null);

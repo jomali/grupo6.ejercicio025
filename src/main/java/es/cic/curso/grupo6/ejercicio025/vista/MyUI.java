@@ -11,6 +11,7 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.UI;
 
+import es.cic.curso.grupo6.ejercicio025.dto.ProductoConverter;
 import es.cic.curso.grupo6.ejercicio025.modelo.Almacen;
 import es.cic.curso.grupo6.ejercicio025.modelo.Producto;
 import es.cic.curso.grupo6.ejercicio025.servicio.ServicioGestorInventario;
@@ -39,7 +40,8 @@ public class MyUI extends UI {
 	private ServicioGestorInventario servicioGestorInventario;
 	private ServicioGestorTienda servicioGestorTienda;
 	private ServicioGestorVentas servicioGestorVentas;
-
+	private ProductoConverter productoConverter;
+	
 	private Almacen almacen;
 	private Almacen tienda;
 
@@ -49,6 +51,8 @@ public class MyUI extends UI {
 				.getBean(ServicioGestorInventario.class);
 		servicioGestorTienda = ContextLoader.getCurrentWebApplicationContext().getBean(ServicioGestorTienda.class);
 		servicioGestorVentas = ContextLoader.getCurrentWebApplicationContext().getBean(ServicioGestorVentas.class);
+		productoConverter = ContextLoader.getCurrentWebApplicationContext().getBean(ProductoConverter.class);
+		
 		almacen = new Almacen();
 		almacen.setNombre("Almacén principal");
 		almacen.setCapacidad(1000);
@@ -66,7 +70,7 @@ public class MyUI extends UI {
 
 		// Crea y registra las vistas:
 		navegador.addView("", new VistaTienda(navegador, servicioGestorTienda, servicioGestorInventario,
-				servicioGestorVentas, almacen, tienda));
+				servicioGestorVentas, productoConverter, almacen, tienda));
 		navegador.addView(VISTA_INVENTARIO,
 				new VistaInventario(navegador, almacen, tienda, servicioGestorInventario));
 		navegador.addView(VISTA_PRODUCTO, new VistaProductos(navegador, servicioGestorTienda));

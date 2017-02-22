@@ -14,6 +14,8 @@ import com.vaadin.ui.MenuBar.MenuItem;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Grid.SelectionMode;
 
+import es.cic.curso.grupo6.ejercicio025.dto.ProductoConverter;
+import es.cic.curso.grupo6.ejercicio025.dto.ProductoDTO;
 import es.cic.curso.grupo6.ejercicio025.modelo.Almacen;
 import es.cic.curso.grupo6.ejercicio025.modelo.Inventario;
 import es.cic.curso.grupo6.ejercicio025.modelo.Producto;
@@ -27,6 +29,9 @@ public class VistaTienda extends VerticalLayout implements View {
 	private ServicioGestorTienda servicioGestorTienda;
 	private ServicioGestorInventario servicioGestorInventario;
 	private ServicioGestorVentas servicioGestorVentas;
+	
+	private ProductoConverter productoConverter;
+	
 	private Almacen almacen;
 	private Almacen tienda;
 
@@ -40,10 +45,12 @@ public class VistaTienda extends VerticalLayout implements View {
 	@SuppressWarnings("serial")
 	public VistaTienda(Navigator navegador, ServicioGestorTienda servicioGestorTienda,
 			ServicioGestorInventario servicioGestorInventario, ServicioGestorVentas servicioGestorVentas,
+			ProductoConverter productoConverter,
 			Almacen almacen, Almacen tienda) {
 		this.servicioGestorTienda = servicioGestorTienda;
 		this.servicioGestorInventario = servicioGestorInventario;
 		this.servicioGestorVentas = servicioGestorVentas;
+		this.productoConverter = productoConverter;
 		this.almacen = almacen;
 		this.tienda = tienda;
 
@@ -83,7 +90,7 @@ public class VistaTienda extends VerticalLayout implements View {
 
 		gridProductos = new Grid();
 		gridProductos.setCaption("Lista de productos:");
-		gridProductos.setColumns("id", "nombre", "precio");
+		gridProductos.setColumns("id", "nombre", "precio", "inventario1", "inventario2");
 		gridProductos.setWidth(100.0F, Unit.PERCENTAGE);
 		gridProductos.setHeight(300.0F, Unit.PIXELS);
 		gridProductos.setSelectionMode(SelectionMode.SINGLE);
@@ -100,10 +107,14 @@ public class VistaTienda extends VerticalLayout implements View {
 		detalle = new FormularioVenta(this);
 
 		gridProductos.addSelectionListener(e -> {
+			ProductoDTO productoDTO = null;
 			Producto producto = null;
 			if (!e.getSelected().isEmpty()) {
-				producto = (Producto) e.getSelected().iterator().next();
+				productoDTO = (ProductoDTO) e.getSelected().iterator().next();
 				gridInventario.setVisible(true);
+				
+				producto = productoConverter.DTO2Entity(productoDTO);
+				
 				cargaGridInventario(producto);
 			} else {
 				gridInventario.setVisible(false);
@@ -116,8 +127,8 @@ public class VistaTienda extends VerticalLayout implements View {
 	}
 
 	public void cargaGridProductos() {
-		List<Producto> productos = servicioGestorTienda.listaProductos();
-		gridProductos.setContainerDataSource(new BeanItemContainer<>(Producto.class, productos));
+		List<ProductoDTO> productos = servicioGestorTienda.listaProductosDTO();
+		gridProductos.setContainerDataSource(new BeanItemContainer<>(ProductoDTO.class, productos));
 	}
 
 	public void vendeProducto(Producto producto, int cantidad) {

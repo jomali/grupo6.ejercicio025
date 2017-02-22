@@ -2,6 +2,7 @@ package es.cic.curso.grupo6.ejercicio025.servicio;
 
 import java.util.List;
 
+import es.cic.curso.grupo6.ejercicio025.dto.ProductoDTO;
 import es.cic.curso.grupo6.ejercicio025.modelo.Almacen;
 import es.cic.curso.grupo6.ejercicio025.modelo.Producto;
 
@@ -31,6 +32,8 @@ public interface ServicioGestorTienda {
 	void eliminaProducto(Producto producto);
 
 	List<Producto> listaProductos();
+	
+	List<ProductoDTO> listaProductosDTO();	
 	
 	Almacen agregaAlmacen(String nombre, int capacidad);
 

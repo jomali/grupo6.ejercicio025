@@ -6,15 +6,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import es.cic.curso.grupo6.ejercicio025.dto.ProductoConverter;
+import es.cic.curso.grupo6.ejercicio025.dto.ProductoDTO;
 import es.cic.curso.grupo6.ejercicio025.modelo.Almacen;
+import es.cic.curso.grupo6.ejercicio025.modelo.Inventario;
 import es.cic.curso.grupo6.ejercicio025.modelo.Producto;
 import es.cic.curso.grupo6.ejercicio025.repositorio.RepositorioAlmacen;
+import es.cic.curso.grupo6.ejercicio025.repositorio.RepositorioInventario;
 import es.cic.curso.grupo6.ejercicio025.repositorio.RepositorioProducto;
 
 @Service
 @Transactional
 public class ServicioGestorTiendaImpl implements ServicioGestorTienda {
 
+	@Autowired
+	private ProductoConverter productoConverter;
+	
 	private static final String ERROR_PRODUCTO_ID = "No existe ningún producto en BB.DD. con ese ID";
 	private static final String ERROR_ALMACEN_ID = "No existe ningún almacénen BB.DD. con ese ID";
 	private static final String ERROR_ESTADO_ALMACEN = "No puede haber productos en el almacén";
@@ -24,6 +31,9 @@ public class ServicioGestorTiendaImpl implements ServicioGestorTienda {
 	
 	@Autowired
 	private RepositorioAlmacen repositorioAlmacen;
+	
+	@Autowired
+	private RepositorioInventario repositorioInventario;
 	
 	@Override
 	public Producto agregaProducto(String nombre, float precio) {
@@ -119,6 +129,27 @@ public class ServicioGestorTiendaImpl implements ServicioGestorTienda {
 	@Override
 	public List<Almacen> listaAlmacenes() {
 		return repositorioAlmacen.list();
+	}
+
+	@Override
+	public List<ProductoDTO> listaProductosDTO() {
+		List<Producto> productos = listaProductos();
+		List<ProductoDTO> productosDTO = productoConverter.entity2DTO(productos);
+		
+		for(ProductoDTO productoDTO: productosDTO) {
+			List<Inventario> inventarios = repositorioInventario.listByProducto(productoDTO.getId());
+			
+			if (inventarios != null) {
+				if (inventarios.size() >= 1) {
+					productoDTO.setInventario1(inventarios.get(0).toString());
+				}
+				if (inventarios.size() >= 2) {
+					productoDTO.setInventario2(inventarios.get(1).toString());
+				}
+			}
+		}
+		
+		return productosDTO;
 	}
 
 }
